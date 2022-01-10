@@ -1,5 +1,20 @@
+/** @format */
+
 module.exports = {
-  presets: [
-    '@vue/cli-plugin-babel/preset',
+  presets: ['@vue/cli-plugin-babel/preset'],
+  plugins: [
+    [
+      'import',
+      {
+        libraryName: 'vxe-table',
+        style: true,
+      },
+      'vxe-table',
+    ],
+    [
+      'import',
+      { libraryName: 'ant-design-vue', libraryDirectory: 'es', style: 'css' },
+      'ant-design-vue',
+    ],
   ],
 };
