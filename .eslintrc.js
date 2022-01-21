@@ -1,3 +1,7 @@
+/** @format */
+
+const path = require('path');
+
 module.exports = {
   root: true,
   env: {
@@ -14,7 +18,13 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    '@typescript-eslint/no-var-requires': 0
+    '@typescript-eslint/no-var-requires': 0,
+    semi: 0,
+    'import/extensions': [
+      'error',
+      'always',
+      { js: 'never', ts: 'never', tsx: 'never' },
+    ],
   },
   overrides: [
     {
@@ -27,4 +37,12 @@ module.exports = {
       },
     },
   ],
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: path.join(__dirname, './tsconfig.json'),
+        alwaysTryTypes: true,
+      },
+    },
+  },
 };
