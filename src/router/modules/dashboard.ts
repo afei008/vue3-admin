@@ -1,14 +1,15 @@
 /** @format */
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import Layout from '@/layout/index.vue';
 
-const routes = [
+import { RouteRecordRaw } from 'vue-router';
+
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/dashboard',
     redirect: '/dashboard/workplace',
-    component: Layout,
-    meta: { title: '仪表盘', icon: 'PieChartOutlined' },
+    component: () => import('@/layout/index.vue'),
+    meta: { title: '仪表盘', icon: 'icon-dashboard' },
     children: [
       {
         path: 'workplace',
@@ -24,7 +25,7 @@ const routes = [
       },
       {
         path: 'http://www.baidu.com',
-        component: Layout,
+        component: () => import('@/layout/index.vue'),
         meta: { title: '监控页' },
       },
     ],

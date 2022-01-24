@@ -1,14 +1,15 @@
 /** @format */
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import Layout from '@/layout/index.vue';
 
-const routes = [
+import { RouteRecordRaw } from 'vue-router';
+
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/table',
     redirect: '/table/base-table',
-    component: Layout,
-    meta: { title: '表格页' },
+    component: () => import('@/layout/index.vue'),
+    meta: { title: '表格页', icon: 'icon-table' },
     children: [
       {
         path: 'base-table',

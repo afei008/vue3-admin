@@ -5,11 +5,20 @@
     <template v-if="onlyChild">
       <app-link v-if="onlyChild.meta" :to="resolvePath(onlyChild.path)">
         <a-menu-item :key="resolvePath(onlyChild.path)">
-          {{ onlyChild?.meta?.title }}
+          <title-item
+            :title="onlyChild.meta.title"
+            :icon="onlyChild.meta.icon || item.meta.icon"
+          ></title-item>
         </a-menu-item>
       </app-link>
     </template>
-    <a-sub-menu v-else :title="item.meta.title" :key="resolvePath(item.path)">
+    <a-sub-menu v-else :key="resolvePath(item.path)">
+      <template #title>
+        <title-item
+          :title="item.meta.title"
+          :icon="item.meta.icon"
+        ></title-item>
+      </template>
       <app-sidebar-item
         v-for="child in item.children"
         :key="child.path"
@@ -26,6 +35,7 @@ import { defineComponent } from 'vue';
 import MetaTypes from '@/router/interface';
 import { isExternal } from '@/libs/validate';
 import AppLink from './AppLink.vue';
+import TitleItem from './TitleItem.vue';
 
 const path = require('path');
 
@@ -38,6 +48,7 @@ export default defineComponent({
   name: 'AppSidebarItem',
   components: {
     AppLink,
+    TitleItem,
   },
   props: {
     item: {

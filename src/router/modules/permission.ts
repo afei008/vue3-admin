@@ -1,14 +1,15 @@
 /** @format */
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import Layout from '@/layout/index.vue';
 
-const routes = [
+import { RouteRecordRaw } from 'vue-router';
+
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/permission',
     redirect: '/permission/page',
-    component: Layout,
-    meta: { title: '权限配置' },
+    component: () => import('@/layout/index.vue'),
+    meta: { title: '权限配置', icon: 'icon-lock' },
     children: [
       {
         path: 'page-permission',

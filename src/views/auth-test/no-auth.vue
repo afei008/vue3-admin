@@ -1,13 +1,11 @@
 <!-- @format -->
 
-<template>
-<p v-for="item in 10" :key="item">workplace</p>
-</template>
+<template>no auto</template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Workplace',
+  name: 'NoAuth',
 });
 </script>

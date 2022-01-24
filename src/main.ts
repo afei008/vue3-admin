@@ -1,7 +1,7 @@
 /** @format */
 
 import { App, createApp } from 'vue';
-import 'overlayscrollbars/css/OverlayScrollbars.css'
+import 'overlayscrollbars/css/OverlayScrollbars.css';
 
 import XEUtils from 'xe-utils';
 import {
@@ -11,12 +11,31 @@ import 'vxe-table/lib/style.css';
 import zhCN from 'vxe-table/lib/locale/lang/zh-CN';
 
 import {
-  ConfigProvider, Button, DatePicker, Radio, Layout, Menu, Breadcrumb, Row, Col,
+  ConfigProvider,
+  Button,
+  DatePicker,
+  Radio,
+  Layout,
+  Menu,
+  Breadcrumb,
+  Row,
+  Col,
+  Form,
+  Input,
+  Checkbox,
+  Dropdown,
+  Divider,
+  Modal,
 } from 'ant-design-vue';
 
+import api from './api';
 import app from './App.vue';
 import router from './router';
 import store, { key } from './store';
+import './permission';
+import './style/index.scss';
+
+import permission from './directive/permission';
 
 VXETable.setup({
   i18n: (vxekey, args) => XEUtils.toFormatString(XEUtils.get(zhCN, vxekey), args),
@@ -26,17 +45,30 @@ function useTable(appli: App) {
 }
 
 function useAntd(appli: App) {
-  appli.use(ConfigProvider).use(Button).use(DatePicker).use(Radio)
+  appli
+    .use(ConfigProvider)
+    .use(Button)
+    .use(DatePicker)
+    .use(Radio)
     .use(Layout)
     .use(Menu)
     .use(Breadcrumb)
     .use(Row)
-    .use(Col);
+    .use(Col)
+    .use(Form)
+    .use(Input)
+    .use(Checkbox)
+    .use(Dropdown)
+    .use(Divider)
+    .use(Modal);
 }
 
-createApp(app)
-  .use(store, key)
+const APP = createApp(app);
+APP.config.globalProperties.$api = api;
+
+APP.use(store, key)
   .use(router)
   .use(useTable)
   .use(useAntd)
+  .directive('permission', permission)
   .mount('#app');

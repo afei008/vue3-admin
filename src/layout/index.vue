@@ -18,9 +18,6 @@
       <a-layout-content class="app-main">
         <app-main></app-main>
       </a-layout-content>
-      <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
-      </a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
@@ -58,11 +55,27 @@ export default defineComponent({
   padding: 0;
   position: sticky;
   top: 0;
+  z-index: 1;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
 }
 .app-main {
   margin: 20px;
   background: #fff;
-  min-height: 360px;
+}
+
+::v-deep {
+  .ant-layout-sider-collapsed {
+    .ant-menu-submenu-title {
+      padding: 0 32px !important;
+    }
+    .menu-title .menu-icon {
+      margin-right: 0;
+    }
+    .menu-text,
+    .ant-menu-submenu-arrow {
+      opacity: 0 !important;
+      width: 0;
+    }
+  }
 }
 </style>
