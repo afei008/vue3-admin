@@ -5,6 +5,7 @@ interface MetaTypes {
   icon?: string;
   hidden?: boolean;
   roles?: Array<string>;
+  noCache?: boolean;
 }
 
 export default MetaTypes;

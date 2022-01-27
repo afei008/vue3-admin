@@ -1,6 +1,8 @@
 <!-- @format -->
 
-<template>directive-permission</template>
+<template>
+  <div>directive-permission</div>
+</template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 

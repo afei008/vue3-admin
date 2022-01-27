@@ -70,6 +70,7 @@ export default defineComponent({
       if (!this.item.children) {
         return this.item;
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let oneChild = {} as Record<string, any>;
       const showingChildren = this.item.children.filter((item: ChildTypes) => {
         if (!item?.meta?.hidden) {
@@ -96,7 +97,7 @@ export default defineComponent({
     },
   },
   methods: {
-    resolvePath(routePath: any) {
+    resolvePath(routePath: string) {
       if (isExternal(routePath)) {
         return routePath;
       }

@@ -1,5 +1,13 @@
 /** @format */
 
+@import 'variable.scss';
+@import 'transition.scss';
+
+:root {
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
+}
+
 .icon {
   width: 1em;
   height: 1em;

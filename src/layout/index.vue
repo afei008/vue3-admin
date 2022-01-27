@@ -12,12 +12,8 @@
       <app-sidebar></app-sidebar>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header class="app-header">
-        <app-header @changeCollapsed="changeCollapsed"></app-header>
-      </a-layout-header>
-      <a-layout-content class="app-main">
-        <app-main></app-main>
-      </a-layout-content>
+      <app-header @changeCollapsed="changeCollapsed"></app-header>
+      <app-main></app-main>
     </a-layout>
   </a-layout>
 </template>
@@ -52,30 +48,30 @@ export default defineComponent({
 }
 .app-header {
   background: #fff;
-  padding: 0;
+  padding: 0 20px;
   position: sticky;
   top: 0;
   z-index: 1;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  height: auto;
+  line-height: initial;
 }
 .app-main {
   margin: 20px;
   background: #fff;
 }
 
-::v-deep {
-  .ant-layout-sider-collapsed {
-    .ant-menu-submenu-title {
-      padding: 0 32px !important;
-    }
-    .menu-title .menu-icon {
-      margin-right: 0;
-    }
-    .menu-text,
-    .ant-menu-submenu-arrow {
-      opacity: 0 !important;
-      width: 0;
-    }
+:deep(.ant-layout-sider-collapsed) {
+  .ant-menu-submenu-title {
+    padding: 0 32px !important;
+  }
+  .menu-title .menu-icon {
+    margin-right: 0;
+  }
+  .menu-text,
+  .ant-menu-submenu-arrow {
+    opacity: 0 !important;
+    width: 0;
   }
 }
 </style>

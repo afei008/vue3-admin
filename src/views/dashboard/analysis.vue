@@ -1,6 +1,8 @@
 <!-- @format -->
 
-<template>analysis</template>
+<template>
+  <div>analysis</div>
+</template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';

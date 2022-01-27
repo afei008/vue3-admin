@@ -29,6 +29,9 @@ export default defineComponent({
           autoHide: 'leave',
           visibility: 'auto',
         },
+        overflowBehavior: {
+          x: 'hidden',
+        },
       });
     });
   },

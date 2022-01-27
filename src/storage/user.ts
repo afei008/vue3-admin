@@ -14,7 +14,7 @@ export function setRoles(roles: Array<string>): void {
 export function getRoles(): Array<string> {
   const storage = sessionStorage.getItem('roles') || '';
   if (!storage) {
-    return ['']
+    return []
   }
   const roles = JSON.parse(storage);
   return roles;

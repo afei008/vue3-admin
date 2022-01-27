@@ -1,11 +1,14 @@
 <!-- @format -->
 
 <template>
-<vxe-grid v-bind="gridOptions">
+  <div>
+    <vxe-grid v-bind="gridOptions">
       <template #name="{ row }">
         <span>自定义插槽模板 {{ row.name }}</span>
       </template>
-    </vxe-grid></template>
+    </vxe-grid>
+  </div>
+</template>
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
 

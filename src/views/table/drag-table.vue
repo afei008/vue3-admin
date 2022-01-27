@@ -1,6 +1,8 @@
 <!-- @format -->
 
-<template>drag-table</template>
+<template>
+  <div>drag-table</div>
+</template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 

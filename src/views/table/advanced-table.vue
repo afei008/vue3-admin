@@ -1,8 +1,10 @@
 <!-- @format -->
 
 <template>
-  <a-button type="primary">Primary Button</a-button>
-  <a-date-picker v-model:value="value1" />
+  <div>
+    <a-button type="primary">Primary Button</a-button>
+    <a-date-picker v-model:value="value1" />
+  </div>
 </template>
 
 <script lang="ts">

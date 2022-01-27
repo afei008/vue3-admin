@@ -1,6 +1,8 @@
 <!-- @format -->
 
-<template>no auto</template>
+<template>
+  <div>no auth</div>
+</template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';

@@ -1,10 +1,12 @@
+<!-- @format -->
+
 <template>
-  menu2
+  <div>menu2</div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'Menu2',
-})
+});
 </script>

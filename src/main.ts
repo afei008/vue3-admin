@@ -26,6 +26,7 @@ import {
   Dropdown,
   Divider,
   Modal,
+  Tag,
 } from 'ant-design-vue';
 
 import api from './api';
@@ -60,7 +61,8 @@ function useAntd(appli: App) {
     .use(Checkbox)
     .use(Dropdown)
     .use(Divider)
-    .use(Modal);
+    .use(Modal)
+    .use(Tag);
 }
 
 const APP = createApp(app);

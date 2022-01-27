@@ -66,7 +66,7 @@ export default defineComponent({
       username: [{ required: true, validator: checkUsername, trigger: 'change' }],
       password: [{ required: true, message: '请输入密码' }],
     };
-    const onFinish = (values: any) => {
+    const onFinish = (values: FormTypes) => {
       const { username, password } = values
       isLoading.value = true
       store.dispatch('userState/login', { username, password }).finally(() => {
@@ -74,6 +74,7 @@ export default defineComponent({
       })
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onFinishFailed = (err: any) => {
       console.log('Failed:', err);
     };

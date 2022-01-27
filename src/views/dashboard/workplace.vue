@@ -1,7 +1,9 @@
 <!-- @format -->
 
 <template>
-<p v-for="item in 10" :key="item">workplace</p>
+  <div>
+    <p v-for="item in 10" :key="item">workplace</p>
+  </div>
 </template>
 
 <script lang="ts">

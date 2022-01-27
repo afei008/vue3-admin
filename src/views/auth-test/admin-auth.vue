@@ -1,9 +1,11 @@
 <!-- @format -->
 
 <template>
-  admin auth
-  <a-button @click="changePermission('admin')">admin</a-button>
-  <a-button @click="changePermission('editor')">editor</a-button>
+  <div>
+    admin auth
+    <a-button @click="changePermission('admin')">admin</a-button>
+    <a-button @click="changePermission('editor')">editor</a-button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -17,9 +19,9 @@ export default defineComponent({
     changePermission(role: string) {
       this.changeRoles([role]).then(() => {
         if (!this.$router.hasRoute(this.$route.name as string)) {
-          this.$router.push('/404')
+          this.$router.push('/404');
         }
-      })
+      });
     },
   },
 });

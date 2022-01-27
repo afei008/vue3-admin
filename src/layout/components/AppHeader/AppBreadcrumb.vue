@@ -15,18 +15,21 @@
 
 <script lang="ts">
 import { defineComponent, watch, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { RouteRecordRaw, useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'AppBreadcrumb',
   setup() {
-    const routes = ref<any>([]);
+    const routes = ref<RouteRecordRaw[]>([]);
     const route = useRoute();
 
-    const isDashboard = (item: any) => {
+    const isDashboard = (item: RouteRecordRaw) => {
       const name = item && item.name;
       if (!name) {
         return false;
+      }
+      if (typeof name === 'symbol') {
+        return name;
       }
       return (
         name.trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
@@ -38,6 +41,7 @@ export default defineComponent({
         (item) => item.meta && item.meta.title,
       );
       const first = matched[0];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let target: any[] = [];
       if (!isDashboard(first)) {
         target = [{ path: '/', meta: { title: '主页' } }, ...matched];

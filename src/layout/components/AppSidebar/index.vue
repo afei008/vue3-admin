@@ -4,8 +4,8 @@
   <div class="logo"></div>
   <template v-if="refresh">
     <a-menu
-      v-model:selectedKeys="activeMenu"
-      v-model:openKeys="openMenu"
+      v-model:selectedKeys="activeKeys"
+      v-model:openKeys="openKeys"
       theme="dark"
       mode="inline"
       class="app-menu"
@@ -20,18 +20,11 @@
   </template>
 </template>
 <script lang="ts">
-import {
-  defineComponent,
-  watch,
-  computed,
-  ref,
-  nextTick,
-  onMounted,
-} from 'vue';
-import { useRoute } from 'vue-router';
-import OverlayScrollbars from 'overlayscrollbars';
-import { useStore } from '@/store';
+import { defineComponent } from 'vue';
 import AppSidebarItem from './AppSidebarItem.vue';
+import useMenuKeys from './composables/useMenuKeys';
+import useRefreshMenu from './composables/useRefreshMenu';
+import useScroll from './composables/useScroll';
 
 export default defineComponent({
   name: 'AppSidebar',
@@ -39,73 +32,13 @@ export default defineComponent({
     AppSidebarItem,
   },
   setup() {
-    const route = useRoute();
-    const store = useStore();
-
-    // 暂无好方法直接通过 mapGetters 获取
-    const newRoutes = computed(
-      () => store.getters['permissionState/newRoutes'],
-    );
-
-    const { path, matched } = route;
-    const activeMenu = ref<string[]>([path]);
-    const openMenu = ref<string[]>(['']);
-
-    // 重载菜单
-    const refresh = ref<boolean>(true);
-    const routes = ref<any>(newRoutes.value);
-
-    const getMenuData = () => {
-      activeMenu.value = [route.path];
-
-      const result: string[] = [];
-      if (matched.length > 1) {
-        activeMenu.value[0]
-          .split('/')
-          .slice(1)
-          .reduce((acc, cur) => {
-            if (result.length === 0) {
-              result.push(`/${acc}`);
-              result.push(`/${acc}/${cur}`);
-            } else {
-              result.push(`/${acc}/${cur}`);
-            }
-            return `${acc}/${cur}`;
-          });
-      }
-      openMenu.value = result;
-    };
-
-    getMenuData();
-
-    watch(route, getMenuData);
-    watch(
-      newRoutes,
-      (nv) => {
-        refresh.value = false;
-        routes.value = nv;
-        nextTick(() => {
-          refresh.value = true;
-        });
-      },
-      { deep: true },
-    );
-
-    const setScrollBar = () => {
-      OverlayScrollbars(document.querySelectorAll('.app-menu'), {
-        className: 'os-theme-light',
-        scrollbars: {
-          autoHide: 'leave',
-          visibility: 'auto',
-        },
-      });
-    };
-
-    onMounted(setScrollBar);
+    useScroll();
+    const { activeKeys, openKeys } = useMenuKeys();
+    const { refresh, routes } = useRefreshMenu();
 
     return {
-      activeMenu,
-      openMenu,
+      activeKeys,
+      openKeys,
       routes,
       refresh,
     };

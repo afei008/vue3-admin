@@ -1,6 +1,8 @@
 <!-- @format -->
 
-<template>role-permission</template>
+<template>
+  <div>role-permission</div>
+</template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 
