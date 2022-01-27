@@ -5,8 +5,10 @@ import { RouteRecordRaw } from 'vue-router';
 import RootStateTypes from '@/store/interface';
 import asyncRoutes from '@/router/modules/asyncRoutes';
 import constantRoutes from '@/router/modules/constant';
+import router from '@/router';
 import PermissionStateTypes from './interface';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function hasPermission(roles: Array<string>, route: any) {
   if (route.meta && route.meta.roles) {
     return roles.some((role) => route.meta.roles.includes(role));
@@ -14,7 +16,7 @@ function hasPermission(roles: Array<string>, route: any) {
   return true;
 }
 
-export function filterAsyncRoutes(
+function filterAsyncRoutes(
   routes: Array<RouteRecordRaw>,
   roles: Array<string>,
 ): Array<RouteRecordRaw> {
@@ -56,11 +58,21 @@ const permissionState: Module<PermissionStateTypes, RootStateTypes> = {
           accessRoutes = filterAsyncRoutes(asyncRoutes, roles);
         }
 
-        resolve(accessRoutes);
+        const currRoutes = router.options.routes;
+
+        accessRoutes.map((item: RouteRecordRaw) => {
+          const index = currRoutes.findIndex((it) => it.path === item.path);
+          if (index < 0) {
+            currRoutes.push(item);
+          } else {
+            currRoutes[index] = item;
+          }
+          return null;
+        });
+        currRoutes.map((item) => router.addRoute(item));
+        commit('SET_ROUTES', [...currRoutes]);
+        resolve([...currRoutes]);
       });
-    },
-    changeRoutes({ commit }, routes) {
-      commit('SET_ROUTES', routes);
     },
   },
 };

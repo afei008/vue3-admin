@@ -11,7 +11,6 @@ import {
   setNickname,
 } from '@/storage/user';
 import router from '@/router';
-import { RouteRecordRaw } from 'vue-router';
 import { login, logout } from '@/api/user';
 import { LoginParams } from '@/api/user/interface';
 import UserStateTypes from './interface';
@@ -19,6 +18,7 @@ import UserStateTypes from './interface';
 const defaultState = () => ({
   token: getToken(),
   roles: getRoles(),
+  cacheRoles: null,
   nickname: getNickname(),
 });
 
@@ -30,6 +30,9 @@ const userState: Module<UserStateTypes, RootStateTypes> = {
     },
     roles(state) {
       return state.roles;
+    },
+    cacheRoles(state) {
+      return state.cacheRoles;
     },
     nickname(state) {
       return state.nickname;
@@ -43,6 +46,9 @@ const userState: Module<UserStateTypes, RootStateTypes> = {
     SET_ROLES(state, roles) {
       state.roles = roles;
       setRoles(roles);
+    },
+    SET_CACHE_ROLES(state, roles) {
+      state.cacheRoles = roles;
     },
     SET_NICKNAME(state, nickname) {
       state.nickname = nickname;
@@ -64,36 +70,30 @@ const userState: Module<UserStateTypes, RootStateTypes> = {
         router.push('/');
       });
     },
-    async logout({ commit }) {
+    async logout({ commit, dispatch }) {
       return logout().then(() => {
         commit('RESET_STATE');
-        router.push({ path: '/login' });
+        dispatch('appTagsState/delAllViews', null, { root: true });
+        router.push('/login');
       });
     },
     async resetState({ commit }) {
       commit('RESET_STATE');
     },
-    async changeRoles({ commit, dispatch }, roles: Array<string>) {
-      commit('SET_ROLES', roles);
-
-      const currRoutes = router.options.routes;
+    async changeRoles(
+      { commit, state, dispatch },
+      roles: Array<string> | null,
+    ) {
+      const currRoles = roles || state.roles;
+      commit('SET_ROLES', currRoles);
+      commit('SET_CACHE_ROLES', currRoles);
       const accessRoutes = await dispatch(
         'permissionState/generateRoutes',
-        roles,
+        currRoles,
         { root: true },
       );
-
-      accessRoutes.map((item: RouteRecordRaw) => {
-        const index = currRoutes.findIndex((it) => it.path === item.path);
-        if (index < 0) {
-          currRoutes.push(item);
-        } else {
-          currRoutes[index] = item;
-        }
-        return null;
-      });
-      currRoutes.map((item) => router.addRoute(item));
-      dispatch('permissionState/changeRoutes', [...currRoutes], { root: true });
+      dispatch('appTagsState/delAllViews', null, { root: true });
+      return accessRoutes;
     },
   },
 };

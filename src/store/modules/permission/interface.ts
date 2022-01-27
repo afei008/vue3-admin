@@ -1,5 +1,7 @@
 /** @format */
 
+import { RouteRecordRaw } from 'vue-router';
+
 export default interface PermissionStateTypes {
-  newRoutes: Array<any>;
+  newRoutes: Array<RouteRecordRaw>;
 }

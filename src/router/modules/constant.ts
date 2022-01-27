@@ -16,7 +16,6 @@ const routes: Array<RouteRecordRaw> = [
   ...tableRoutes,
   ...permissionRoutes,
   ...nestedRoutes,
-  { path: '/:pathMatch(.*)*', redirect: '/404', meta: { hidden: true } },
 ];
 
 export default routes;
