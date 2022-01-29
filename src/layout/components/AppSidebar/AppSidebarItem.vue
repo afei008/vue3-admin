@@ -32,17 +32,12 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import MetaTypes from '@/router/interface';
 import { isExternal } from '@/libs/validate';
+import { RouteRecordRaw } from 'vue-router';
 import AppLink from './AppLink.vue';
 import TitleItem from './TitleItem.vue';
 
 const path = require('path');
-
-interface ChildTypes {
-  meta?: MetaTypes;
-  path?: string;
-}
 
 export default defineComponent({
   name: 'AppSidebarItem',
@@ -71,8 +66,8 @@ export default defineComponent({
         return this.item;
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let oneChild = {} as Record<string, any>;
-      const showingChildren = this.item.children.filter((item: ChildTypes) => {
+      let oneChild = {} as RouteRecordRaw;
+      const showingChildren = this.item.children.filter((item: RouteRecordRaw) => {
         if (!item?.meta?.hidden) {
           oneChild = item;
         }
@@ -87,9 +82,12 @@ export default defineComponent({
         basePath = `${this.basePath}/${this.item.path}/${oneChild?.path}`;
       }
       if (showingChildren.length === 1) {
+        if (showingChildren[0].children && showingChildren[0].children.length > 0) {
+          return false;
+        }
         return { ...oneChild, path: basePath };
       }
-      if (showingChildren.lenght === 0) {
+      if (showingChildren.length === 0) {
         return { ...this.item, path: '' };
       }
 

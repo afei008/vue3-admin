@@ -3,6 +3,7 @@
 import { nextTick, onMounted, watch } from 'vue';
 import { useRoute, useRouter, RouteLocation } from 'vue-router';
 import { useStore } from '@/store';
+import useMenuKeys from '@/layout/components/AppSidebar/composables/useMenuKeys'
 
 interface HandleTagTypes {
   clickTag: (tag: RouteLocation) => void;
@@ -41,8 +42,11 @@ export default function useHandleTag(): HandleTagTypes {
     }
   };
 
+  const { getOpenKeys } = useMenuKeys()
+
   const clickTag = (tag: RouteLocation) => {
     router.push(tag.path);
+    getOpenKeys()
   };
   const refreshTag = (tag: RouteLocation) => {
     store.dispatch('appTagsState/delCachedView', tag).then(() => {

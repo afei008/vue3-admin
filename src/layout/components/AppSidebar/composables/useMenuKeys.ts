@@ -1,11 +1,14 @@
 /** @format */
 
-import { reactive, Ref, toRefs } from 'vue';
+import {
+  onMounted, reactive, ref, Ref, toRefs, watch,
+} from 'vue';
 import { useRoute } from 'vue-router';
 
 interface MenuKeysTypes {
-  activeKeys: Ref<string[]>;
+  selectedKeys: Ref<string[]>;
   openKeys: Ref<string[]>;
+  getOpenKeys: () => void;
 }
 
 export default function useMenuKeys(): MenuKeysTypes {
@@ -13,16 +16,18 @@ export default function useMenuKeys(): MenuKeysTypes {
 
   const { path, matched } = route;
   const state = reactive({
-    activeKeys: [path],
+    selectedKeys: [path],
     openKeys: [''],
   });
 
-  const getMenuKeys = () => {
-    state.activeKeys = [route.path];
+  const getSelectedKeys = () => {
+    state.selectedKeys = [route.path];
+  };
 
+  const getOpenKeys = () => {
     const result: string[] = [];
     if (matched.length > 1) {
-      state.activeKeys[0]
+      state.selectedKeys[0]
         .split('/')
         .slice(1)
         .reduce((acc, cur) => {
@@ -38,12 +43,19 @@ export default function useMenuKeys(): MenuKeysTypes {
     state.openKeys = result;
   };
 
-  getMenuKeys();
+  watch(route, () => {
+    getSelectedKeys();
+    // 取消注释该行代码，左侧菜单将自动折叠
+    // getOpenKeys();
+  });
 
-  // 打开该行代码将只展开当前父级菜单
-  // watch(route, getMenuKeys);
+  onMounted(() => {
+    getSelectedKeys();
+    getOpenKeys();
+  });
 
   return {
     ...toRefs(state),
+    getOpenKeys,
   };
 }

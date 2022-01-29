@@ -4,7 +4,7 @@
   <div class="logo"></div>
   <template v-if="refresh">
     <a-menu
-      v-model:selectedKeys="activeKeys"
+      v-model:selectedKeys="selectedKeys"
       v-model:openKeys="openKeys"
       theme="dark"
       mode="inline"
@@ -33,11 +33,11 @@ export default defineComponent({
   },
   setup() {
     useScroll();
-    const { activeKeys, openKeys } = useMenuKeys();
+    const { selectedKeys, openKeys } = useMenuKeys();
     const { refresh, routes } = useRefreshMenu();
 
     return {
-      activeKeys,
+      selectedKeys,
       openKeys,
       routes,
       refresh,
