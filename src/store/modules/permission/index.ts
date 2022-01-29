@@ -1,17 +1,19 @@
 /** @format */
 
 import { Module } from 'vuex';
-import { RouteRecordRaw } from 'vue-router';
+import { RouteRecordName, RouteRecordRaw } from 'vue-router';
 import RootStateTypes from '@/store/interface';
 import asyncRoutes from '@/router/modules/asyncRoutes';
 import constantRoutes from '@/router/modules/constant';
 import router from '@/router';
 import PermissionStateTypes from './interface';
 
+let noAutoRouteNames: Array<RouteRecordName> = [];
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function hasPermission(roles: Array<string>, route: any) {
   if (route.meta && route.meta.roles) {
-    return roles.some((role) => route.meta.roles.includes(role));
+    return roles.some((role) => route?.meta?.roles?.includes(role));
   }
   return true;
 }
@@ -22,15 +24,59 @@ function filterAsyncRoutes(
 ): Array<RouteRecordRaw> {
   const res: Array<RouteRecordRaw> = [];
   routes.forEach((route) => {
-    const tmp = { ...route };
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles);
+    const temp = { ...route };
+    if (hasPermission(roles, temp)) {
+      if (temp.children) {
+        temp.children = filterAsyncRoutes(temp.children, roles);
       }
-      res.push(tmp);
+      res.push(temp);
+    } else {
+      noAutoRouteNames.push(temp.name as RouteRecordName);
     }
   });
 
+  return res;
+}
+
+function filterNoRouteName(
+  routes: Array<RouteRecordRaw>,
+): Array<RouteRecordRaw> {
+  const res: Array<RouteRecordRaw> = [];
+  routes.forEach((item: RouteRecordRaw) => {
+    const temp = { ...item };
+    if (!noAutoRouteNames.includes(temp.name as RouteRecordName)) {
+      if (temp.children) {
+        temp.children = filterNoRouteName(temp.children);
+      }
+      res.push(temp);
+    }
+  });
+  return res;
+}
+
+function addRoutes(routes: Array<RouteRecordRaw>): void {
+  const currRoutes = router.options.routes;
+
+  routes.forEach((item: RouteRecordRaw) => {
+    const index = currRoutes.findIndex((it) => it.path === item.path);
+    if (index < 0) {
+      currRoutes.push(item);
+    } else {
+      currRoutes[index] = item;
+    }
+  });
+  currRoutes.map((item) => router.addRoute(item));
+}
+
+function removeRoutes(): Array<RouteRecordRaw> {
+  const currRoutes = router.options.routes;
+  noAutoRouteNames.forEach((item: RouteRecordName) => {
+    if (router.hasRoute(item)) {
+      router.removeRoute(item);
+    }
+  });
+  const res = filterNoRouteName(currRoutes);
+  noAutoRouteNames = [];
   return res;
 }
 
@@ -58,20 +104,13 @@ const permissionState: Module<PermissionStateTypes, RootStateTypes> = {
           accessRoutes = filterAsyncRoutes(asyncRoutes, roles);
         }
 
-        const currRoutes = router.options.routes;
+        addRoutes(accessRoutes);
 
-        accessRoutes.map((item: RouteRecordRaw) => {
-          const index = currRoutes.findIndex((it) => it.path === item.path);
-          if (index < 0) {
-            currRoutes.push(item);
-          } else {
-            currRoutes[index] = item;
-          }
-          return null;
-        });
-        currRoutes.map((item) => router.addRoute(item));
-        commit('SET_ROUTES', [...currRoutes]);
-        resolve([...currRoutes]);
+        const targetRoutes = removeRoutes();
+        router.options.routes = targetRoutes;
+
+        commit('SET_ROUTES', targetRoutes);
+        resolve(targetRoutes);
       });
     },
   },

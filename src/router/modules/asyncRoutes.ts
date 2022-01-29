@@ -9,7 +9,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'AuthTest',
     redirect: '/auth/no-auth',
     component: () => import('@/layout/index.vue'),
-    meta: { title: '权限测试', icon: 'icon-unlock', roles: ['admin', 'editor'] },
+    meta: {
+      title: '权限测试',
+      icon: 'icon-unlock',
+      roles: ['admin', 'editor'],
+    },
     children: [
       {
         path: 'no-auth',
