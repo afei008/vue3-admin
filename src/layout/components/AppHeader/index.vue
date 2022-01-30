@@ -7,9 +7,9 @@
         <menu-unfold-outlined
           v-if="collapsed"
           class="trigger"
-          @click="change"
+          @click="changeCollapsed"
         />
-        <menu-fold-outlined v-else class="trigger" @click="change" />
+        <menu-fold-outlined v-else class="trigger" @click="changeCollapsed" />
       </a-col>
       <a-col>
         <app-breadcrumb></app-breadcrumb>
@@ -34,7 +34,7 @@
   </a-layout-header>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, toRefs } from 'vue';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -46,6 +46,7 @@ import AppBreadcrumb from './AppBreadcrumb.vue';
 import AppTags from './AppTags/index.vue';
 import useUserData from './composables/useUserData';
 import useDropdownMethods from './composables/useDropdownMethods';
+import collapsed from '../AppSidebar/composables/useCollapsed';
 
 export default defineComponent({
   name: 'AppHeader',
@@ -58,26 +59,15 @@ export default defineComponent({
     AppBreadcrumb,
     AppTags,
   },
-  emits: {
-    changeCollapsed: null,
-  },
-  setup(props, context) {
-    const collapsed = ref<boolean>(false);
-
-    const change = () => {
-      collapsed.value = !collapsed.value;
-      context.emit('changeCollapsed', collapsed.value);
-    };
-
+  setup() {
     const { nickname, avatar } = useUserData();
     const { clickMenu } = useDropdownMethods();
 
     return {
-      collapsed,
       nickname,
       avatar,
       clickMenu,
-      change,
+      ...toRefs(collapsed),
     };
   },
 });

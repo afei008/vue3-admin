@@ -1,7 +1,7 @@
 /** @format */
 
 import {
-  onMounted, reactive, ref, Ref, toRefs, watch,
+  onMounted, reactive, Ref, toRefs, watch,
 } from 'vue';
 import { useRoute } from 'vue-router';
 

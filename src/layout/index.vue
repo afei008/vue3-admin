@@ -2,23 +2,15 @@
 
 <template>
   <a-layout style="min-height: 100vh">
-    <a-layout-sider
-      class="app-sidebar"
-      breakpoint="lg"
-      v-model:collapsed="collapsed"
-      :trigger="null"
-      collapsible
-    >
-      <app-sidebar></app-sidebar>
-    </a-layout-sider>
+    <app-sidebar></app-sidebar>
     <a-layout>
-      <app-header @changeCollapsed="changeCollapsed"></app-header>
+      <app-header></app-header>
       <app-main></app-main>
     </a-layout>
   </a-layout>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { AppMain, AppHeader, AppSidebar } from './components/index';
 
 export default defineComponent({
@@ -26,16 +18,6 @@ export default defineComponent({
     AppSidebar,
     AppHeader,
     AppMain,
-  },
-  setup() {
-    const collapsed = ref<boolean>(false);
-    const changeCollapsed = (v: boolean) => {
-      collapsed.value = v;
-    };
-    return {
-      collapsed,
-      changeCollapsed,
-    };
   },
 });
 </script>
