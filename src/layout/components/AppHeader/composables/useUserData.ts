@@ -13,7 +13,7 @@ interface UserDataTypes {
 export default function useUserData(): UserDataTypes {
   const store = useStore();
 
-  const nickname = computed(() => store.getters['userState/nikename']);
+  const nickname = computed(() => store.getters['userState/nickname']);
 
   return {
     nickname,
