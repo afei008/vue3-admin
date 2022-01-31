@@ -33,7 +33,7 @@ export default defineComponent({
   padding: 0 20px;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 20;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
   height: auto;
   line-height: initial;

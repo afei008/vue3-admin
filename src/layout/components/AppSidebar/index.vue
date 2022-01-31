@@ -28,11 +28,11 @@
   </a-layout-sider>
 </template>
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue';
+import { defineComponent, onMounted, toRefs } from 'vue';
+import useScrollbars from '@/composables/useScrollbars';
 import AppSidebarItem from './AppSidebarItem.vue';
 import useMenuKeys from './composables/useMenuKeys';
 import useRefreshMenu from './composables/useRefreshMenu';
-import useScroll from './composables/useScroll';
 import collapsed from './composables/useCollapsed';
 
 export default defineComponent({
@@ -41,9 +41,18 @@ export default defineComponent({
     AppSidebarItem,
   },
   setup() {
-    useScroll();
     const { selectedKeys, openKeys } = useMenuKeys();
     const { refresh, routes } = useRefreshMenu();
+
+    const { initScrollbars } = useScrollbars({
+      className: 'os-theme-light',
+      el: '.app-menu',
+      x: 'hidden',
+    });
+
+    onMounted(() => {
+      initScrollbars.value();
+    });
 
     return {
       selectedKeys,

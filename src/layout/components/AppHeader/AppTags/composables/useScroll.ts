@@ -1,35 +1,25 @@
 /** @format */
 
-import OverlayScrollbars from 'overlayscrollbars';
 import {
-  nextTick, onBeforeUnmount, onMounted, ref, watch,
+  nextTick, onBeforeUnmount, onMounted, watch,
 } from 'vue';
 import { useRoute } from 'vue-router';
+import useScrollbars from '@/composables/useScrollbars';
 
 export default function useScroll(): void {
   const route = useRoute();
 
-  const scroll = ref();
-
-  const setScrollBar = () => {
-    scroll.value = OverlayScrollbars(
-      document.querySelectorAll('.app-tags-container'),
-      {
-        scrollbars: {
-          autoHide: 'leave',
-          visibility: 'auto',
-        },
-        overflowBehavior: {
-          y: 'hidden',
-        },
-      },
-    );
-  };
+  const { scrollbars, initScrollbars } = useScrollbars({
+    el: '.app-tags-container',
+    y: 'hidden',
+  });
 
   const moveToCurrentTag = (): void => {
     nextTick(() => {
-      if (scroll.value) {
-        scroll.value.scroll(document.querySelector('.tag-active'));
+      if (scrollbars.value) {
+        scrollbars.value.scroll(
+          document.querySelector('.tag-active') as HTMLElement,
+        );
       }
     });
   };
@@ -38,10 +28,12 @@ export default function useScroll(): void {
     moveToCurrentTag();
   });
 
-  onMounted(setScrollBar);
+  onMounted(() => {
+    initScrollbars.value();
+  });
 
   onBeforeUnmount(() => {
-    scroll.value.destroy();
-    scroll.value = null;
+    scrollbars.value?.destroy();
+    scrollbars.value = undefined;
   });
 }

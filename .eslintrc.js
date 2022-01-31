@@ -25,6 +25,7 @@ module.exports = {
       'always',
       { js: 'never', ts: 'never', tsx: 'never' },
     ],
+    "no-unused-expressions": 0
   },
   overrides: [
     {
