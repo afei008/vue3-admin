@@ -7,7 +7,7 @@ import { getToken } from '@/storage/user';
 function getBaseUrl(type = 1): string {
   switch (type) {
     case 1:
-      return '1';
+      return '/api';
     case 2:
       return '2';
     default:
@@ -27,6 +27,7 @@ const instanceAxios = axios.create({
 instanceAxios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     if (store.getters.token) {
+      /* eslint-disable @typescript-eslint/no-non-null-assertion */
       // eslint-disable-next-line no-param-reassign
       config!.headers!.Authorization = getToken();
     }

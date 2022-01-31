@@ -86,11 +86,6 @@ export default defineComponent({
       onFinishFailed,
     };
   },
-  mounted() {
-    // this.$api.login({ username: 'admin', password: '123' }).then((res: any) => {
-    // console.log(res);
-    // });
-  },
 });
 </script>
 <style lang="scss" scoped>

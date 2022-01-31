@@ -1,5 +1,6 @@
 /** @format */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import qs from 'qs';
 import axios from './index';
@@ -11,7 +12,7 @@ function getRequest(url: string, params = {}): Promise<any> {
         params,
       })
       .then((res) => {
-        resolve(res.data);
+        resolve(res);
       })
       .catch((err) => {
         reject(err);
@@ -24,7 +25,7 @@ function postRequest(url: string, params = {}): Promise<any> {
     axios
       .post(url, qs.stringify(params))
       .then((res) => {
-        resolve(res.data);
+        resolve(res);
       })
       .catch((err) => {
         reject(err);

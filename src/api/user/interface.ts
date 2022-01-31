@@ -12,6 +12,4 @@ export interface LoginParams {
   password: string;
 }
 
-export interface Logout {
-  code: number;
-}
+export type Logout = null;

@@ -2,65 +2,59 @@
 
 <template>
   <div>
-    <vxe-grid v-bind="gridOptions">
-      <template #name="{ row }">
-        <span>自定义插槽模板 {{ row.name }}</span>
-      </template>
-    </vxe-grid>
+    <a-spin :spinning="isLoading">
+      <vxe-grid v-bind="gridOptions">
+        <template #operator="{ row }">
+          <span>{{ row.operator }}</span>
+        </template>
+        <template #handle="{ row }">
+          <a-button type="primary" @click="clickSetting(row.id)">
+            订阅报警
+          </a-button>
+        </template>
+      </vxe-grid>
+      <vxe-pager
+        background
+        v-model:current-page="page.currentPage"
+        v-model:page-size="page.pageSize"
+        :total="page.totalResult"
+        @page-change="page.pageChange"
+        :layouts="page.layouts"
+      >
+      </vxe-pager>
+    </a-spin>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, toRefs } from 'vue';
+import { message } from 'ant-design-vue';
+import useArticle from './composables/useArticle';
+import useBaseTable from './composables/useBaseTable';
+import usePager from './composables/usePager';
 
 export default defineComponent({
   name: 'BaseTable',
   setup() {
-    const gridOptions = reactive({
-      border: true,
-      columns: [
-        { type: 'seq', width: 50 },
-        { field: 'name', title: 'Name', slots: { default: 'name' } },
-        { field: 'sex', title: 'Sex', showHeaderOverflow: true },
-        { field: 'address', title: 'Address', showOverflow: true },
-      ],
-      data: [
-        {
-          id: 10001,
-          name: 'Test1',
-          role: 'Develop',
-          sex: 'Man',
-          age: 28,
-          address: 'test abc',
-        },
-        {
-          id: 10002,
-          name: 'Test2',
-          role: 'Test',
-          sex: 'Women',
-          age: 22,
-          address: 'Guangzhou',
-        },
-        {
-          id: 10003,
-          name: 'Test3',
-          role: 'PM',
-          sex: 'Man',
-          age: 32,
-          address: 'Shanghai',
-        },
-        {
-          id: 10004,
-          name: 'Test4',
-          role: 'Designer',
-          sex: 'Women',
-          age: 24,
-          address: 'Shanghai',
-        },
-      ],
-    });
+    const params = reactive({ pageNum: 1, pageSize: 10 });
+    const { isLoading, articleList } = useArticle(params);
+
+    const { gridOptions } = useBaseTable(articleList);
+
+    const { page } = usePager(params);
+
+    const refsPage = toRefs(page);
+    params.pageNum = refsPage.currentPage;
+    params.pageSize = refsPage.pageSize;
+
+    const clickSetting = (id: number) => {
+      message.info(`订阅成功${id}`);
+    };
 
     return {
+      isLoading,
       gridOptions,
+      page,
+      clickSetting,
     };
   },
 });

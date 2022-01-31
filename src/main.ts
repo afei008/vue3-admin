@@ -5,7 +5,14 @@ import 'overlayscrollbars/css/OverlayScrollbars.css';
 
 import XEUtils from 'xe-utils';
 import {
-  VXETable, Header, Column, Table, Grid,
+  VXETable,
+  Header,
+  Column,
+  Table,
+  Grid,
+  Pager,
+  Select as VxeSelect,
+  Input as VxeInput,
 } from 'vxe-table';
 import 'vxe-table/lib/style.css';
 import zhCN from 'vxe-table/lib/locale/lang/zh-CN';
@@ -27,8 +34,10 @@ import {
   Divider,
   Modal,
   Tag,
+  Spin,
 } from 'ant-design-vue';
 
+import mockXHR from './mock';
 import api from './api';
 import app from './App.vue';
 import router from './router';
@@ -38,11 +47,22 @@ import './style/index.scss';
 
 import permission from './directive/permission';
 
+if (process.env.NODE_ENV === 'mock') {
+  mockXHR();
+}
+
 VXETable.setup({
   i18n: (vxekey, args) => XEUtils.toFormatString(XEUtils.get(zhCN, vxekey), args),
 });
 function useTable(appli: App) {
-  appli.use(Header).use(Column).use(Table).use(Grid);
+  appli
+    .use(Header)
+    .use(Column)
+    .use(Table)
+    .use(Grid)
+    .use(Pager)
+    .use(VxeInput)
+    .use(VxeSelect);
 }
 
 function useAntd(appli: App) {
@@ -62,7 +82,8 @@ function useAntd(appli: App) {
     .use(Dropdown)
     .use(Divider)
     .use(Modal)
-    .use(Tag);
+    .use(Tag)
+    .use(Spin);
 }
 
 const APP = createApp(app);

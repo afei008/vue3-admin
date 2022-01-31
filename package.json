@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "mock": "vue-cli-service serve --mode mock"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
@@ -15,6 +16,7 @@
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.7",
+    "mockjs": "^1.1.0",
     "moment": "^2.29.1",
     "overlayscrollbars": "^1.13.1",
     "vue": "^3.2.26",

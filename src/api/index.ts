@@ -6,7 +6,7 @@ files.keys().forEach((fileName) => {
   if (fileName === './index.ts' || fileName.indexOf('/index.ts') < 0) {
     return;
   }
-  temp = { ...files(fileName).default };
+  temp = { ...temp, ...files(fileName).default };
 });
 
 const api = { ...temp };
