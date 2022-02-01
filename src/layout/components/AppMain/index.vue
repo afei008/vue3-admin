@@ -5,7 +5,7 @@
     <router-view v-slot="{ Component }">
       <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cachedViews">
-          <component :is="Component" />
+          <component :is="Component" :key="$route.path" />
         </keep-alive>
       </transition>
     </router-view>
