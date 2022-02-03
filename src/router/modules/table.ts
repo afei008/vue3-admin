@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'advanced-table',
         name: 'AdvancedTable',
         component: () => import('@/views/table/advanced-table.vue'),
-        meta: { title: '高级表格' },
+        meta: { title: '综合表格' },
       },
     ],
   },

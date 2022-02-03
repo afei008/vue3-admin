@@ -24,7 +24,7 @@ export default function useBaseTable(
   const gridOptions = computed(() => ({
     border: true,
     columns: columns.value,
-    data: tableData.value.data,
+    data: tableData.value,
   }));
 
   return {

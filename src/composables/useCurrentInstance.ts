@@ -3,6 +3,7 @@
 // 封装 getCurrentInstance
 import { getCurrentInstance, ComponentInternalInstance } from 'vue';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function useCurrentInstance(): Record<string, any> {
   const { appContext } = getCurrentInstance() as ComponentInternalInstance;
   const proxy = appContext.config.globalProperties;

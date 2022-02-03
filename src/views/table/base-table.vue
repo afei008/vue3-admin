@@ -12,21 +12,23 @@
             订阅报警
           </a-button>
         </template>
+        <template #pager>
+          <vxe-pager
+            background
+            v-model:current-page="page.currentPage"
+            v-model:page-size="page.pageSize"
+            :total="page.totalResult"
+            @page-change="page.pageChange"
+            :layouts="page.layouts"
+          >
+          </vxe-pager>
+        </template>
       </vxe-grid>
-      <vxe-pager
-        background
-        v-model:current-page="page.currentPage"
-        v-model:page-size="page.pageSize"
-        :total="page.totalResult"
-        @page-change="page.pageChange"
-        :layouts="page.layouts"
-      >
-      </vxe-pager>
     </a-spin>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { message } from 'ant-design-vue';
 import useArticle from './composables/useArticle';
 import useBaseTable from './composables/useBaseTable';
@@ -35,16 +37,21 @@ import usePager from './composables/usePager';
 export default defineComponent({
   name: 'BaseTable',
   setup() {
-    const params = reactive({ pageNum: 1, pageSize: 10 });
-    const { isLoading, articleList } = useArticle(params);
+    const params = ref({
+      pageNum: 1,
+      pageSize: 10,
+    });
+
+    const changeParams = (pages: Record<string, number>) => {
+      params.value.pageNum = pages.pageNum;
+      params.value.pageSize = pages.pageSize;
+    };
+
+    const { isLoading, articleList, pages } = useArticle(params);
 
     const { gridOptions } = useBaseTable(articleList);
 
-    const { page } = usePager(params);
-
-    const refsPage = toRefs(page);
-    params.pageNum = refsPage.currentPage;
-    params.pageSize = refsPage.pageSize;
+    const { page } = usePager(pages, changeParams);
 
     const clickSetting = (id: number) => {
       message.info(`订阅成功${id}`);
