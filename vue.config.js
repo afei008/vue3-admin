@@ -82,12 +82,12 @@ const vueConfig = {
         // prependData: `@import "@/styles/variables.scss";`,
       },
       less: {
-        modifyVars: {
-          // less vars，customize ant design theme
-          'primary-color': '#1abc9c',
+        lessOptions: {
+          modifyVars: {
+            'primary-color': '#e14e6f',
+          },
+          javascriptEnabled: true,
         },
-        // DO NOT REMOVE THIS LINE
-        javascriptEnabled: true,
       },
     },
   },

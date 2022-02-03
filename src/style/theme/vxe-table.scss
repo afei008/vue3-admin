@@ -1,0 +1,10 @@
+/** @format */
+
+@import '../variable.scss';
+@import 'vxe-table/styles/variable.scss';
+
+/*color*/
+$vxe-primary-color: $primary-color;
+
+@import 'vxe-table/styles/icon.scss';
+@import 'vxe-table/styles/pager.scss';
