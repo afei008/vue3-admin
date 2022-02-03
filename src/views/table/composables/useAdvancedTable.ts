@@ -25,8 +25,18 @@ export default function useAdvancedTable(
   const gridRef = ref({} as VxeGridInstance);
 
   const columns = reactive([
-    { type: 'checkbox', width: 50, visible: true },
-    { type: 'seq', width: 50, visible: true },
+    {
+      type: 'checkbox',
+      field: 'checkbox',
+      width: 50,
+      visible: true,
+    },
+    {
+      type: 'seq',
+      field: 'seq',
+      width: 50,
+      visible: true,
+    },
     {
       field: 'describe',
       title: '描述',
