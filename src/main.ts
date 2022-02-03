@@ -17,7 +17,7 @@ import useAntd from './init/antd';
 
 import mockXHR from './mock';
 
-if (process.env.NODE_ENV === 'mock') {
+if (process.env.NODE_ENV === 'mock' || process.env.NODE_ENV === 'production') {
   mockXHR();
 }
 

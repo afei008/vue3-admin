@@ -31,6 +31,7 @@ const assetsCDN = {
 
 // vue.config.js
 const vueConfig = {
+  publicPath: '/',
   configureWebpack: {
     // webpack plugins
     plugins: [
@@ -47,7 +48,7 @@ const vueConfig = {
   },
 
   chainWebpack: (config) => {
-    config.resolve.alias.set('@$', resolve('src'));
+    config.resolve.alias.set('@', resolve('src'));
 
     const svgRule = config.module.rule('svg');
     svgRule.uses.clear();
@@ -74,6 +75,32 @@ const vueConfig = {
         return arr;
       });
     }
+
+    config.when(isProd, (con) => {
+      con.optimization.splitChunks({
+        chunks: 'all',
+        cacheGroups: {
+          libs: {
+            name: 'chunk-libs',
+            test: /[\\/]node_modules[\\/]/,
+            priority: 10,
+            chunks: 'initial',
+          },
+          antd: {
+            name: 'chunk-antd',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?ant-design-vue(.*)/,
+          },
+          commons: {
+            name: 'chunk-commons',
+            test: resolve('src/components'),
+            minChunks: 3,
+            priority: 5,
+            reuseExistingChunk: true,
+          },
+        },
+      });
+    });
   },
 
   css: {
