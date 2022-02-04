@@ -21,6 +21,8 @@ import {
   Spin,
   Tooltip,
   Select,
+  Card,
+  Tabs,
 } from 'ant-design-vue';
 
 export default function useAntd(app: App): void {
@@ -43,5 +45,7 @@ export default function useAntd(app: App): void {
     .use(Tag)
     .use(Spin)
     .use(Tooltip)
-    .use(Select);
+    .use(Select)
+    .use(Card)
+    .use(Tabs);
 }

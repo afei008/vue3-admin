@@ -151,7 +151,7 @@ export default defineComponent({
   margin-bottom: 20px;
 }
 .table {
-  height: calc(100vh - 94px - 80px - 32px - 20px);
+  height: calc(100vh - 94px - 40px - 32px - 20px);
 }
 .checkboxs {
   position: absolute;

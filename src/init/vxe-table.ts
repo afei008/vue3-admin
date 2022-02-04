@@ -9,10 +9,10 @@ import {
   Table,
   Grid,
   Pager,
-  Select as VxeSelect,
-  Input as VxeInput,
+  Select,
+  Input,
   Filter,
-  Radio as VxeRadio,
+  Radio,
 } from 'vxe-table';
 import '@/style/theme/vxe-table.scss';
 import zhCN from 'vxe-table/lib/locale/lang/zh-CN';
@@ -28,8 +28,8 @@ export default function useTable(app: App): void {
     .use(Table)
     .use(Grid)
     .use(Pager)
-    .use(VxeInput)
-    .use(VxeSelect)
+    .use(Input)
+    .use(Select)
     .use(Filter)
-    .use(VxeRadio);
+    .use(Radio);
 }

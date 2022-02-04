@@ -22,28 +22,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.app-sidebar {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
-.app-header {
-  background: #fff;
-  padding: 0 20px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  height: auto;
-  line-height: initial;
-}
-.app-main {
-  margin: 20px;
-  padding: 20px;
-  background: #fff;
-}
-
 :deep(.ant-layout-sider-collapsed) {
   .ant-menu-submenu-title {
     padding: 0 32px !important;

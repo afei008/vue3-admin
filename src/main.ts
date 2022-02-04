@@ -7,13 +7,13 @@ import store, { key } from './store';
 import api from './api';
 
 import './permission';
-import 'overlayscrollbars/css/OverlayScrollbars.css';
-import './style/index.scss';
-
 import permission from './directive/permission';
 
 import useTable from './init/vxe-table';
 import useAntd from './init/antd';
+
+import 'overlayscrollbars/css/OverlayScrollbars.css';
+import './style/index.scss';
 
 import mockXHR from './mock';
 

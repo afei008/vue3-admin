@@ -35,8 +35,6 @@ const vueConfig = {
   configureWebpack: {
     // webpack plugins
     plugins: [
-      // Ignore all locale files of moment.js
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.DefinePlugin({
         // eslint-disable-next-line global-require
         APP_VERSION: `"${require('./package.json').version}"`,

@@ -70,9 +70,4 @@ export default defineComponent({
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
 }
-.app-menu {
-  height: calc(100vh - 64px);
-  position: relative;
-  margin-top: 0;
-}
 </style>

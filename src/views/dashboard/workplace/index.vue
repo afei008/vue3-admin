@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <template>
-  <div>
+  <div class="container">
     <p v-for="item in 10" :key="item">workplace</p>
   </div>
 </template>

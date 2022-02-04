@@ -14,19 +14,19 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'workplace',
         name: 'Workplace',
-        component: () => import('@/views/dashboard/workplace.vue'),
+        component: () => import('@/views/dashboard/workplace/index.vue'),
         meta: { title: '工作台' },
       },
       {
         path: 'analysis',
         name: 'Analysis',
-        component: () => import('@/views/dashboard/analysis.vue'),
+        component: () => import('@/views/dashboard/analysis/index.vue'),
         meta: { title: '分析页' },
       },
       {
         path: 'http://www.baidu.com',
         component: () => import('@/layout/index.vue'),
-        meta: { title: '监控页' },
+        meta: { title: '外链' },
       },
     ],
   },
