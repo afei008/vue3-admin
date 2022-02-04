@@ -9,12 +9,14 @@
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
-// 官方文档说更换成了 dayjs，但实际测试并没有更换，仍然是 moment，不知是否是未更新
-import moment from 'moment';
-import 'moment/locale/zh-cn';
 import useScrollbars from '@/composables/useScrollbars';
 
-moment.locale('en');
+// eslint-disable-next-line import/no-extraneous-dependencies
+import dayjs from 'dayjs';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'dayjs/locale/zh-cn';
+
+dayjs.locale('zh-cn');
 
 export default defineComponent({
   setup() {
