@@ -18,10 +18,10 @@ const routes: Array<RouteRecordRaw> = [
         meta: { title: '富文本编辑器' },
       },
       {
-        path: 'step-form',
-        name: 'StepForm',
-        component: () => import('@/views/components/step-form.vue'),
-        meta: { title: '分步表单' },
+        path: 'clipboard',
+        name: 'Clipboard',
+        component: () => import('@/views/components/clipboard.vue'),
+        meta: { title: '剪贴板' },
       },
       {
         path: 'advanced-form',
