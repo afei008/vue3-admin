@@ -18,7 +18,7 @@ import Editor from '@tinymce/tinymce-vue';
 import useCurrentInstance from '@/composables/useCurrentInstance';
 
 export default defineComponent({
-  name: 'Tinymce',
+  name: 'TinymceEditor',
   components: {
     Editor,
   },

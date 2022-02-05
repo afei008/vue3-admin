@@ -8,6 +8,7 @@
 import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
+  name: 'Rain',
   setup() {
     const rainRef = ref({} as HTMLElement);
     const createRain = () => {
@@ -15,7 +16,7 @@ export default defineComponent({
       const frag = document.createDocumentFragment();
       for (let i = 0; i < amount; i += 1) {
         const el = document.createElement('i');
-        el.classList.add('i')
+        el.classList.add('i');
 
         const width = Math.random() * 5;
         const left = Math.floor(Math.random() * window.innerWidth);
@@ -46,32 +47,32 @@ export default defineComponent({
   position: absolute;
   top: 0;
   left: 0;
-}
-.i {
-  position: absolute;
-  height: 200px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  animation: rain 3s linear infinite;
-  &:nth-child(4n + 1) {
-    background: linear-gradient(transparent, var(--primary-color));
+  .i {
+    position: absolute;
+    height: 200px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    animation: rain 3s linear infinite;
+    &:nth-child(4n + 1) {
+      background: linear-gradient(transparent, var(--primary-color));
+    }
+    &:nth-child(4n + 2) {
+      background: linear-gradient(transparent, var(--secondary-color));
+    }
+    &:nth-child(4n + 3) {
+      background: linear-gradient(transparent, deeppink);
+    }
+    &:nth-child(4n + 4) {
+      background: linear-gradient(transparent, deepskyblue);
+    }
   }
-  &:nth-child(4n + 2) {
-    background: linear-gradient(transparent, var(--secondary-color));
-  }
-  &:nth-child(4n + 3) {
-    background: linear-gradient(transparent, deeppink);
-  }
-  &:nth-child(4n + 4) {
-    background: linear-gradient(transparent, deepskyblue);
-  }
-}
-@keyframes rain {
-  0% {
-    transform: translateY(-200px);
-  }
-  100% {
-    transform: translateY(calc(100vh + 200px));
+  @keyframes rain {
+    0% {
+      transform: translateY(-200px);
+    }
+    100% {
+      transform: translateY(calc(100vh + 200px));
+    }
   }
 }
 </style>
