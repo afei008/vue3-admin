@@ -23,6 +23,7 @@ import {
   Select,
   Card,
   Tabs,
+  Upload,
 } from 'ant-design-vue';
 
 export default function useAntd(app: App): void {
@@ -47,5 +48,6 @@ export default function useAntd(app: App): void {
     .use(Tooltip)
     .use(Select)
     .use(Card)
-    .use(Tabs);
+    .use(Tabs)
+    .use(Upload);
 }

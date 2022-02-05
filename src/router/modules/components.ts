@@ -7,26 +7,26 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/form',
-    redirect: '/form/base-form',
+    redirect: '/components/tinymce',
     component: () => import('@/layout/index.vue'),
-    meta: { title: '表单页', icon: 'icon-edit-square' },
+    meta: { title: '组件', icon: 'icon-appstoreadd' },
     children: [
       {
-        path: 'base-form',
-        name: 'BaseForm',
-        component: () => import('@/views/form/base-form.vue'),
-        meta: { title: '基础表单' },
+        path: 'tinymce',
+        name: 'Tinymce',
+        component: () => import('@/views/components/tinymce.vue'),
+        meta: { title: '富文本编辑器' },
       },
       {
         path: 'step-form',
         name: 'StepForm',
-        component: () => import('@/views/form/step-form.vue'),
+        component: () => import('@/views/components/step-form.vue'),
         meta: { title: '分步表单' },
       },
       {
         path: 'advanced-form',
         name: 'AdvancedForm',
-        component: () => import('@/views/form/advanced-form.vue'),
+        component: () => import('@/views/components/advanced-form.vue'),
         meta: { title: '高级表单' },
       },
     ],

@@ -1,0 +1,29 @@
+<!-- @format -->
+
+<template>
+  <div>
+    <p>tinymce 富文本编辑器</p>
+    <tinymce-editor v-model="content" :height="400"></tinymce-editor>
+
+  <div v-html="content"></div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import TinymceEditor from '@/components/TinymceEditor/index.vue';
+
+export default defineComponent({
+  name: 'Tinymce',
+  components: {
+    TinymceEditor,
+  },
+  setup() {
+    const content = ref();
+
+    return {
+      content,
+    };
+  },
+});
+</script>
