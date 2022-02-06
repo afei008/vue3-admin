@@ -7,7 +7,7 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/permission',
-    redirect: '/permission/page',
+    redirect: '/permission/page-permission',
     component: () => import('@/layout/index.vue'),
     meta: { title: '权限配置', icon: 'icon-lock' },
     children: [

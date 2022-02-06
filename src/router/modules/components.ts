@@ -6,7 +6,7 @@ import { RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/form',
+    path: '/components',
     redirect: '/components/tinymce',
     component: () => import('@/layout/index.vue'),
     meta: { title: '组件', icon: 'icon-appstoreadd' },
