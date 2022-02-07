@@ -169,6 +169,7 @@ export default function useChartsDemo(): ChartsDemoTypes {
   const disposeChart = () => {
     window.removeEventListener('resize', myChart.resize);
     myChart.dispose();
+    myChart = null
   };
 
   onMounted(() => {
