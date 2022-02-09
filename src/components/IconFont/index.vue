@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import '@/assets/iconfont.css';
+import '@/assets/font/iconfont.css';
 
 // 本来打算通过 antd 的 iconfont 方法创建组件的，但是在引用本地 js 文件的过程中
 // 1. 通过 import 引入 js 文件会提示`<`这个错误，引用线上文件正常

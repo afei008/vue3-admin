@@ -2,7 +2,7 @@
 
 import { useStore } from '@/store';
 import { computed, ComputedRef } from 'vue';
-import avatar from '@/assets/avatar.png';
+import avatar from '@/assets/images/avatar.png';
 
 interface UserDataTypes {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
