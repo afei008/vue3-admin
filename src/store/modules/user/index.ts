@@ -95,6 +95,9 @@ const userState: Module<UserStateTypes, RootStateTypes> = {
       dispatch('appTagsState/delAllViews', null, { root: true });
       return accessRoutes;
     },
+    changeNickname({ commit }, nickname) {
+      commit('SET_NICKNAME', nickname);
+    },
   },
 };
 

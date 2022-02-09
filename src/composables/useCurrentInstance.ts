@@ -14,7 +14,7 @@ export default function useCurrentInstance(): Record<string, any> {
 
 // 用法
 
-// import useCurrentInstance from '@/libs/useCurrentInstance'
+// import useCurrentInstance from '@/composables/useCurrentInstance'
 
 // setup(){
 //   const { proxy } = useCurrentInstance()

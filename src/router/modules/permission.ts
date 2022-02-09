@@ -1,7 +1,5 @@
 /** @format */
 
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [

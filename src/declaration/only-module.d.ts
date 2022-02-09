@@ -12,4 +12,10 @@ declare module '*.bmp';
 declare module '*.tiff';
 
 declare module 'mockjs';
-declare module 'sortablejs'
+declare module 'sortablejs';
+
+declare interface Window {
+  _AMapSecurityConfig: any;
+  AMap: any;
+  AMapLoader: any
+}

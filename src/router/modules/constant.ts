@@ -8,6 +8,7 @@ import dashboardRoutes from './dashboard';
 import componentsRoutes from './components';
 import tableRoutes from './table';
 import permissionRoutes from './permission';
+import amapRoutes from './amapRoutes'
 
 const routes: Array<RouteRecordRaw> = [
   ...singleRoutes,
@@ -16,6 +17,7 @@ const routes: Array<RouteRecordRaw> = [
   ...tableRoutes,
   ...permissionRoutes,
   ...nestedRoutes,
+  ...amapRoutes,
 ];
 
 export default routes;
