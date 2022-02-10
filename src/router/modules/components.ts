@@ -27,6 +27,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/components/dynamic-form.vue'),
         meta: { title: '动态表单' },
       },
+      {
+        path: 'custom-table',
+        name: 'CustomTable',
+        component: () => import('@/views/components/customTable.vue'),
+        meta: { title: '自定义表格' },
+      },
     ],
   },
 ];
