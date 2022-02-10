@@ -21,10 +21,11 @@
           </span>
           <template #overlay>
             <a-menu @click="clickMenu">
-              <a-menu-item :key="1"><user-outlined />个人中心 </a-menu-item>
-              <a-menu-item :key="2"><setting-outlined />个人设置 </a-menu-item>
+              <a-menu-item :key="1"><link-outlined /> 项目地址</a-menu-item>
+              <a-menu-item :key="2"><user-outlined /> 个人中心</a-menu-item>
+              <a-menu-item :key="3"><setting-outlined /> 个人设置</a-menu-item>
               <a-menu-divider></a-menu-divider>
-              <a-menu-item :key="3"><logout-outlined />退出登录 </a-menu-item>
+              <a-menu-item :key="0"><logout-outlined /> 退出登录</a-menu-item>
             </a-menu>
           </template>
         </a-dropdown>
@@ -41,6 +42,7 @@ import {
   UserOutlined,
   SettingOutlined,
   LogoutOutlined,
+  LinkOutlined,
 } from '@ant-design/icons-vue';
 import AppBreadcrumb from './AppBreadcrumb.vue';
 import AppTags from './AppTags/index.vue';
@@ -56,6 +58,7 @@ export default defineComponent({
     UserOutlined,
     SettingOutlined,
     LogoutOutlined,
+    LinkOutlined,
     AppBreadcrumb,
     AppTags,
   },

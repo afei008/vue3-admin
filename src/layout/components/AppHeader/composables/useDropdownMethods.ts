@@ -25,9 +25,21 @@ export default function useDropdownMethods(): DropdownMethodsTypes {
       class: 'test',
     });
   };
+
+  const openUrl = () => {
+    const url = 'https://github.com/afei008/vue3-admin';
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.click();
+  };
+
   const clickMenu = ({ key }: { key: number }) => {
     switch (key) {
-      case 3:
+      case 1:
+        openUrl();
+        break;
+      case 0:
         showModal();
         break;
       default:
