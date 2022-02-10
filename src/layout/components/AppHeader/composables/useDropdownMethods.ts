@@ -25,9 +25,24 @@ export default function useDropdownMethods(): DropdownMethodsTypes {
       class: 'test',
     });
   };
+
+  const openUrl = () => {
+    const url = 'https://github.com/afei008/vue3-admin';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let a = document.createElement('a') as any;
+    a.href = url;
+    a.target = '_blank';
+    a.click();
+    // 手动清掉
+    a = null;
+  };
+
   const clickMenu = ({ key }: { key: number }) => {
     switch (key) {
-      case 3:
+      case 1:
+        openUrl();
+        break;
+      case 0:
         showModal();
         break;
       default:
