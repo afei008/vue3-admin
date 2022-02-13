@@ -30,10 +30,18 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'custom-table',
         name: 'CustomTable',
-        component: () => import('@/views/components/customTable.vue'),
+        component: () => import('@/views/components/custom-table.vue'),
         meta: { title: '自定义表格' },
       },
     ],
+  },
+  {
+    path: '/components/dynamic-form:pathMatch(.*)*',
+    redirect: '/components/dynamic-form',
+  },
+  {
+    path: '/components/custom-table:pathMatch(.*)*',
+    redirect: '/components/custom-table',
   },
 ];
 

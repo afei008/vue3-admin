@@ -2,17 +2,6 @@
 
 <template>
   <div>
-    <p>此组件主要用于学习如何自己实现一个 table 组件</p>
-    <p>
-      antd 的传参方式相对简单，因为表头是同个一个属性传入的，并且 slot
-      都是同一级
-    </p>
-    <p>
-      element-ui 的难点在于表头的获取和 slot
-      的展示，需要用到渲染函数。table-column
-      本身并不参与展示，只是用于收集表头和 slot，然后在 table-head 和 table-body
-      处渲染
-    </p>
     <h1>类似 antd 表格的传参方式</h1>
     <b-table :data="tableData" :columns="columns">
       <template #detail="record">
@@ -39,6 +28,7 @@
         </template>
       </e-table-column>
     </e-table>
+    <right-panel childRouteName="Table"></right-panel>
   </div>
 </template>
 
@@ -48,11 +38,14 @@ import { defineComponent, reactive } from 'vue';
 import BTable from '@/components/BTable/BTable.vue';
 import ETable from '@/components/ETable/ETable.vue';
 import ETableColumn from '@/components/ETable/ETableColumn.vue';
+import RightPanel from '@/components/RightPanel/index.vue';
 
 import { ColumnsTypes } from '@/components/BTable/interface';
 
 export default defineComponent({
-  components: { BTable, ETable, ETableColumn },
+  components: {
+    BTable, ETable, ETableColumn, RightPanel,
+  },
   setup() {
     const columns: ColumnsTypes[] = [
       { label: '大小', prop: 'big' },

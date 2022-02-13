@@ -8,11 +8,13 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "mock": "vue-cli-service serve --mode mock"
+    "mock": "vue-cli-service serve --mode mock",
+    "build:github": "vue-cli-service build --mode github"
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
     "@ant-design/icons-vue": "^6.0.1",
+    "@micro-zoe/micro-app": "^0.8.4",
     "@tinymce/tinymce-vue": "^4.0.5",
     "ant-design-vue": "3.0.0-beta.9",
     "axios": "^0.24.0",

@@ -24,7 +24,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // 注入组件属性，以供子组件调用
+    // 提供组件属性，以供子组件调用
     provide('table', useTable(props.data));
   },
 });

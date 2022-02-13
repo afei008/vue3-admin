@@ -28,6 +28,10 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: '/dashboard/workplace:pathMatch(.*)*',
+    redirect: '/dashboard/workplace',
+  },
 ];
 
 export default routes;

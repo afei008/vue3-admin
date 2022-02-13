@@ -15,23 +15,25 @@ const isProd = process.env.NODE_ENV === 'production';
 const assetsCDN = {
   // webpack build externals
   externals: {
-    vue: 'Vue',
-    'vue-router': 'VueRouter',
-    vuex: 'Vuex',
+    // 因为后面定义了 isCustomElement，因此此处不能将其抽离到 cdn
+    // 否则页面会提示需要自定义设置，虽然不影响使用。当您不需要 micro-app 时，可将此处打开
+    // vue: 'Vue',
+    // 'vue-router': 'VueRouter',
+    // vuex: 'Vuex',
     axios: 'axios',
   },
   css: [],
   js: [
-    '//cdn.jsdelivr.net/npm/vue@3.2.21/dist/vue.global.min.js',
-    '//cdn.jsdelivr.net/npm/vue-router@4.0.12/dist/vue-router.global.min.js',
-    '//cdn.jsdelivr.net/npm/vuex@4.0.2/dist/vuex.global.min.js',
+    // '//cdn.jsdelivr.net/npm/vue@3.2.21/dist/vue.global.min.js',
+    // '//cdn.jsdelivr.net/npm/vue-router@4.0.12/dist/vue-router.global.min.js',
+    // '//cdn.jsdelivr.net/npm/vuex@4.0.2/dist/vuex.global.min.js',
     '//cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js',
   ],
 };
 
 // vue.config.js
 const vueConfig = {
-  publicPath: '/',
+  publicPath: isProd ? '/vue3-admin' : '',
   configureWebpack: {
     // webpack plugins
     plugins: [
@@ -47,6 +49,18 @@ const vueConfig = {
 
   chainWebpack: (config) => {
     config.resolve.alias.set('@', resolve('src'));
+
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap((options) => {
+        // eslint-disable-next-line no-param-reassign
+        options.compilerOptions = {
+          ...(options.compilerOptions || {}),
+          isCustomElement: (tag) => /^micro-app/.test(tag),
+        };
+        return options;
+      });
 
     const svgRule = config.module.rule('svg');
     svgRule.uses.clear();
@@ -139,7 +153,6 @@ const vueConfig = {
   // disable source map in production
   productionSourceMap: false,
   lintOnSave: undefined,
-  // babel-loader no-ignore node_modules/*
   transpileDependencies: [],
 };
 

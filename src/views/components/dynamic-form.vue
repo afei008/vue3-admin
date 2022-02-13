@@ -2,7 +2,9 @@
 
 <template>
   <div>
-    <p>封装常用表单组件，使用时只需传入表单生成对象，即可自动生成表单，更多其他类型请参考源码自行封装</p>
+    <p>
+      封装常用表单组件，使用时只需传入表单生成对象，即可自动生成表单，更多其他类型请参考源码自行封装
+    </p>
     <dynamic-form-component
       ref="dynamicRef"
       :dynamicData="dynamicData"
@@ -13,6 +15,7 @@
       <a-button type="primary" @click="getData">获取数据</a-button>
       {{ formData }}
     </p>
+    <right-panel childRouteName="Form"></right-panel>
   </div>
 </template>
 
@@ -20,11 +23,13 @@
 import { defineComponent, reactive, ref } from 'vue';
 import DynamicFormComponent from '@/components/DynamicForm/index.vue';
 import { DynamicTypes } from '@/components/DynamicForm/interface';
+import RightPanel from '@/components/RightPanel/index.vue';
 
 export default defineComponent({
   name: 'DynamicForm',
   components: {
     DynamicFormComponent,
+    RightPanel,
   },
   setup() {
     const dynamicRef = ref();
