@@ -1,0 +1,11 @@
+/** @format */
+
+@import '../variable';
+@import 'vxe-table/styles/variable';
+
+/* color */
+$vxe-primary-color: $primary-color;
+
+@import 'vxe-table/styles/icon';
+@import 'vxe-table/styles/pager';
+@import 'vxe-table/styles/loading';
