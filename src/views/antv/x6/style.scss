@@ -1,0 +1,37 @@
+/** @format */
+
+.antv-x6 {
+  height: 100%;
+}
+
+.head {
+  height: 40px;
+}
+
+.body {
+  height: calc(100% - 40px);
+}
+
+.shadow {
+  box-shadow: 0 0 10px 0 rgba($color: #000, $alpha: 0.1);
+}
+
+#x6 {
+  flex: 1;
+}
+
+.left,
+.right {
+  height: calc(100vh - 174px);
+  padding: 15px;
+}
+
+.left {
+  flex: 0 0 80px;
+  margin-right: 10px;
+}
+
+.right {
+  flex: 0 0 400px;
+  margin-left: 10px;
+}

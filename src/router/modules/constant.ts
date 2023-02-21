@@ -10,6 +10,7 @@ import tableRoutes from './table';
 import permissionRoutes from './permission';
 import amapRoutes from './amapRoutes';
 import webapiRoutes from './webapiRoutes';
+import antvRoutes from './antvRoutes';
 
 const routes: Array<RouteRecordRaw> = [
   ...singleRoutes,
@@ -20,6 +21,7 @@ const routes: Array<RouteRecordRaw> = [
   ...nestedRoutes,
   ...amapRoutes,
   ...webapiRoutes,
+  ...antvRoutes,
   // {
   //   path: '/vue-app',
   //   redirect: '/vue-app/index',
