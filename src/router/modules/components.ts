@@ -33,6 +33,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/components/custom-table.vue'),
         meta: { title: '自定义表格' },
       },
+      {
+        path: 'color-picker',
+        name: 'ColorPicker',
+        component: () => import('@/views/components/color-picker.vue'),
+        meta: { title: '颜色选择器' },
+      },
       //   组件有问题，暂时隐藏
       //   {
       //     path: 'drag-layout',
