@@ -81,11 +81,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .right-panel {
-  position: absolute;
-  top: 0;
+  --h: calc(100vh - 94px);
+
+  position: fixed;
+  top: 94px;
   right: 0;
   width: 50%;
-  height: calc(100vh - 94px - 40px);
+  height: var(--h);
   padding-left: 52px;
   background: rgba($color: #fff, $alpha: 0.8);
   transition: 0.5s;
@@ -104,7 +106,7 @@ export default defineComponent({
   }
 
   .micro-app {
-    height: 100%;
+    height: var(--h);
     box-shadow: 0 0 10px 1px rgba($color: #000, $alpha: 0.2);
   }
 
