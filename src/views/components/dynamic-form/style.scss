@@ -1,0 +1,32 @@
+/** @format */
+
+.dynamic-form {
+  height: 100%;
+}
+
+.head {
+  height: 40px;
+}
+
+.body {
+  height: calc(100% - 40px);
+}
+
+.shadow {
+  box-shadow: 0 0 10px 0 rgba($color: #000, $alpha: 0.1);
+}
+
+.left {
+  flex: 1;
+}
+
+.right {
+  flex: 0 0 400px;
+  height: calc(100vh - 174px);
+  padding: 15px;
+  margin-left: 10px;
+}
+
+.ant-btn {
+  margin-right: 10px;
+}

@@ -2,11 +2,10 @@
 
 <template>
   <a-form-item :label="item.label" :name="item.name">
-    <a-select
-      ref="select"
+    <a-checkbox-group
       v-model:value="value"
+      name="checkboxgroup"
       :options="item.options"
-      placeholder="请选择"
     />
   </a-form-item>
 </template>
@@ -15,7 +14,7 @@ import { defineComponent, ref, toRefs, watch } from 'vue';
 import formState from '../composables/useFormData';
 
 export default defineComponent({
-  name: 'SelectComp',
+  name: 'CheckboxComp',
   props: {
     item: {
       type: Object,
@@ -30,8 +29,11 @@ export default defineComponent({
     const { item, name } = toRefs(props);
     const value = ref(item.value.value);
 
-    watch(value, (nv) => {
-      formState.changeData(name.value, nv);
+    watch([value, props.item], (nv) => {
+      formState.changeData(name.value, nv[0]);
+      if (!props.item.build) {
+        value.value = nv[1].value;
+      }
     });
 
     return {

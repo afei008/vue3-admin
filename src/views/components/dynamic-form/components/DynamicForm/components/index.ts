@@ -1,6 +1,6 @@
 /** @format */
 
-const temp: Record<string, any> = {};
+const temp: Record<string, unknown> = {};
 const files = import.meta.glob('./*.vue', { eager: true });
 Object.entries(files).forEach((item) => {
   const [key, value] = item as any;

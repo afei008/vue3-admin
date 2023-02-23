@@ -24,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'dynamic-form',
         name: 'DynamicForm',
-        component: () => import('@/views/components/dynamic-form.vue'),
+        component: () => import('@/views/components/dynamic-form/index.vue'),
         meta: { title: '动态表单' },
       },
       {
