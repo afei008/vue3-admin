@@ -56,7 +56,7 @@ const project = (url: string) =>
           javascriptEnabled: true,
         },
         scss: {
-          additionalData: `@import '@/style/_variable.scss';`,
+          additionalData: `@import '@/styles/_variable.scss';`,
         },
       },
     },

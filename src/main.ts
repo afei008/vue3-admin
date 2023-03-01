@@ -12,7 +12,7 @@ import useTable from './init/vxe-table';
 import useAntd from './init/antd';
 
 import 'overlayscrollbars/overlayscrollbars.css';
-import './style/index.scss';
+import './styles/index.scss';
 
 import './permission';
 import permission from './directive/permission';

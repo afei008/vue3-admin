@@ -15,7 +15,7 @@ import {
   Edit,
   Keyboard,
 } from 'vxe-table';
-import '@/style/theme/vxe-table.scss';
+import '@/styles/theme/vxe-table.scss';
 import zhCN from 'vxe-table/lib/locale/lang/zh-CN';
 import '@/vxe-components';
 
