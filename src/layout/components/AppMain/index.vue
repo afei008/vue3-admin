@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <template>
-  <a-layout-content class="app-main">
+  <el-main class="app-main">
     <router-view v-slot="{ Component }">
       <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cachedViews">
@@ -9,7 +9,7 @@
         </keep-alive>
       </transition>
     </router-view>
-  </a-layout-content>
+  </el-main>
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue';

@@ -1,31 +1,19 @@
 /** @format */
 
-import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { createVNode } from 'vue';
-import { Modal } from 'ant-design-vue';
-import 'ant-design-vue/es/modal/style/index';
+import { ref, type Ref } from 'vue';
 import { useUserStore } from '@/store/modules/user';
 
 interface DropdownMethodsTypes {
-  clickMenu: ({ key }: { key: number }) => void;
+  clickMenu: (key: number) => void;
+  showDialog: Ref;
+  clickConfirm: () => void;
+  clickCancel: () => void;
 }
 
 export default function useDropdownMethods(): DropdownMethodsTypes {
   const userStore = useUserStore();
 
   const logout = () => userStore.logout();
-
-  const showModal = () => {
-    Modal.confirm({
-      title: '退出登录',
-      icon: createVNode(QuestionCircleOutlined),
-      content: createVNode('div', {}, '确定退出登录吗？'),
-      onOk() {
-        return logout();
-      },
-      class: 'test',
-    });
-  };
 
   const openUrl = () => {
     const url = 'https://github.com/afei008/vue3-admin';
@@ -35,13 +23,21 @@ export default function useDropdownMethods(): DropdownMethodsTypes {
     a.click();
   };
 
-  const clickMenu = ({ key }: { key: number }) => {
+  const showDialog = ref(false);
+  const clickConfirm = () => {
+    logout();
+  };
+  const clickCancel = () => {
+    showDialog.value = false;
+  };
+
+  const clickMenu = (key: number) => {
     switch (key) {
       case 1:
         openUrl();
         break;
       case 0:
-        showModal();
+        showDialog.value = true;
         break;
       default:
         console.log(`Click on item ${key}`);
@@ -50,5 +46,8 @@ export default function useDropdownMethods(): DropdownMethodsTypes {
 
   return {
     clickMenu,
+    showDialog,
+    clickConfirm,
+    clickCancel,
   };
 }

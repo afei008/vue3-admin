@@ -1,47 +1,64 @@
 <!-- @format -->
 
 <template>
-  <a-tabs class="tabs bg-white" :animated="true" @change="changeTabs">
-    <a-tab-pane key="1" tab="销售额" :force-render="true">
-      <a-row>
-        <a-col :span="16">
-          <div ref="chartRef1" class="chart" />
-        </a-col>
-        <a-col :span="8" class="wrap">
-          <h4>门店销售额排名</h4>
-          <ul class="list">
-            <li v-for="item in listData" :key="item.title" class="item flex jb">
-              <span class="title">{{ item.title }}</span>
-              <span>{{ item.total }}</span>
-            </li>
-          </ul>
-        </a-col>
-      </a-row>
-    </a-tab-pane>
-    <a-tab-pane key="2" tab="访问量" :force-render="true">
-      <a-row>
-        <a-col :span="16">
-          <div ref="chartRef2" class="chart" />
-        </a-col>
-        <a-col :span="8" class="wrap">
-          <h4>门店访问量排名</h4>
-          <ul class="list">
-            <li v-for="item in listData" :key="item.title" class="item flex jb">
-              <span class="title">{{ item.title }}</span>
-              <span>{{ item.total }}</span>
-            </li>
-          </ul>
-        </a-col>
-      </a-row>
-    </a-tab-pane>
-    <template #rightExtra>
-      <a-button type="link">今日</a-button>
-      <a-button type="link">本周</a-button>
-      <a-button type="link">本月</a-button>
-      <a-button type="link">全年</a-button>
-      <a-range-picker v-model:value="value" />
-    </template>
-  </a-tabs>
+  <el-card class="tabs-wrap">
+    <el-tabs class="tabs bg-white" @tab-change="changeTabs">
+      <el-tab-pane key="1" label="销售额" :force-render="true">
+        <el-row>
+          <el-col :span="16">
+            <div ref="chartRef1" class="chart" />
+          </el-col>
+          <el-col :span="8" class="wrap">
+            <h4>门店销售额排名</h4>
+            <ul class="list">
+              <li
+                v-for="item in listData"
+                :key="item.title"
+                class="item flex jb"
+              >
+                <span class="title">{{ item.title }}</span>
+                <span>{{ item.total }}</span>
+              </li>
+            </ul>
+          </el-col>
+        </el-row>
+      </el-tab-pane>
+      <el-tab-pane key="2" label="访问量" :force-render="true">
+        <el-row>
+          <el-col :span="16">
+            <div ref="chartRef2" class="chart" />
+          </el-col>
+          <el-col :span="8" class="wrap">
+            <h4>门店访问量排名</h4>
+            <ul class="list">
+              <li
+                v-for="item in listData"
+                :key="item.title"
+                class="item flex jb"
+              >
+                <span class="title">{{ item.title }}</span>
+                <span>{{ item.total }}</span>
+              </li>
+            </ul>
+          </el-col>
+        </el-row>
+      </el-tab-pane>
+    </el-tabs>
+    <div class="date-picker flex ac">
+      <el-button size="small">今日</el-button>
+      <el-button size="small">本周</el-button>
+      <el-button size="small">本月</el-button>
+      <el-button size="small">全年</el-button>
+      <el-date-picker
+        v-model="value"
+        type="daterange"
+        range-separator="-"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        size="small"
+      />
+    </div>
+  </el-card>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
@@ -76,14 +93,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-:deep(.ant-tabs-nav) {
-  padding: 0 20px;
-}
-
-:deep(.ant-tabs-content-holder) {
-  padding: 5px 20px 20px;
-}
-
 .chart {
   min-height: 300px;
 }
@@ -124,6 +133,20 @@ export default defineComponent({
       margin-right: auto;
       margin-left: 20px;
     }
+  }
+}
+
+.tabs-wrap {
+  position: relative;
+}
+
+.date-picker {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  & > :last-child {
+    margin-left: 10px;
   }
 }
 </style>

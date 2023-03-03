@@ -1,13 +1,16 @@
 <!-- @format -->
 
 <template>
-  <a-form-item :label="item.label" :name="item.name">
-    <a-checkbox-group
-      v-model:value="value"
-      name="checkboxgroup"
-      :options="item.options"
-    />
-  </a-form-item>
+  <el-form-item :label="item.label" :prop="item.name">
+    <el-checkbox-group v-model="value" name="checkboxgroup">
+      <el-checkbox
+        v-for="check in item.options"
+        :key="check.label"
+        :label="check.label"
+        :value="check.value"
+      />
+    </el-checkbox-group>
+  </el-form-item>
 </template>
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch } from 'vue';

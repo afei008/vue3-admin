@@ -2,15 +2,13 @@
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import microApp from '@micro-zoe/micro-app';
 
 import App from './App.vue';
 import router from './router';
-import api from './api';
 
 import useTable from './init/vxe-table';
-import useAntd from './init/antd';
 
+import 'element-plus/theme-chalk/src/message.scss';
 import 'overlayscrollbars/overlayscrollbars.css';
 import './styles/index.scss';
 
@@ -20,16 +18,13 @@ import permission from './directive/permission';
 import mockXHR from './mock';
 
 mockXHR();
-microApp.start();
 
 const app = createApp(App);
-app.config.globalProperties.$api = api;
 
 app
   .use(createPinia())
   .use(router)
   .use(useTable)
-  .use(useAntd)
   .directive('permission', permission);
 
 app.mount('#app');

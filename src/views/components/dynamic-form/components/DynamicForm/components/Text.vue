@@ -1,9 +1,9 @@
 <!-- @format -->
 
 <template>
-  <a-form-item :label="item.label" :name="item.name">
-    <a-input v-model:value="value" :placeholder="item.attrs.placeholder" />
-  </a-form-item>
+  <el-form-item :label="item.label" :prop="item.name">
+    <el-input v-model="value" :placeholder="item.attrs.placeholder" />
+  </el-form-item>
 </template>
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch } from 'vue';

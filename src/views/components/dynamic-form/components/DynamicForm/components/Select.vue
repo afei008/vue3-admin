@@ -1,13 +1,16 @@
 <!-- @format -->
 
 <template>
-  <a-form-item :label="item.label" :name="item.name">
-    <a-select
-      v-model:value="value"
-      :options="item.options"
-      placeholder="请选择"
-    />
-  </a-form-item>
+  <el-form-item :label="item.label" :name="item.name">
+    <el-select v-model="value" :options="item.options" placeholder="请选择">
+      <el-option
+        v-for="option in item.options"
+        :key="option.value"
+        :label="option.label"
+        :value="option.value"
+      />
+    </el-select>
+  </el-form-item>
 </template>
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch } from 'vue';

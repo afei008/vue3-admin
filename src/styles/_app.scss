@@ -1,38 +1,78 @@
 /** @format */
+/* stylelint-disable selector-class-pattern */
 
-.ant-layout {
-  background: initial;
-}
-
-.app-header.ant-layout-header {
+.app-header.el-header {
   position: sticky;
   top: 0;
   z-index: 20;
-  height: auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  height: 80px;
   padding: 0 20px;
   line-height: initial;
   background: #fff;
   box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
 }
 
-.app-sidebar.ant-layout-sider {
+.app-sidebar.el-aside {
   position: sticky;
   top: 0;
+  width: 200px;
   height: 100vh;
   overflow: hidden;
+  background: #001529;
+  transition: 0.3s;
+
+  &.collapsed {
+    width: 64px;
+  }
 }
 
-.app-menu {
-  position: relative;
+.app-menu-wrap {
   height: calc(100vh - 64px);
+}
+
+.app-menu.el-menu {
+  position: relative;
   margin-top: 0;
+  border: 0;
+
+  &.el-menu--collapse {
+    .menu-icon + .menu-text,
+    .menu-title + .el-icon {
+      display: none;
+    }
+  }
+
+  .el-menu-item {
+    &:hover {
+      color: #fff;
+    }
+
+    &.is-active {
+      background: var(--primary-color);
+    }
+  }
+
+  .el-sub-menu.is-opened {
+    &.is-active > .el-sub-menu__title {
+      color: #fff !important;
+    }
+
+    .el-menu,
+    .nest-menu,
+    .nest-menu .el-sub-menu__title {
+      background: #000c17 !important;
+    }
+  }
 }
 
 .app-main {
-  position: relative;
-  margin: 20px;
+  overflow-x: hidden !important;
 }
 
-.app-container {
-  padding: 20px;
+.os-theme-dark,
+.os-theme-light {
+  --os-size: 6px;
 }

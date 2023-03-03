@@ -2,7 +2,7 @@
 
 <template>
   <div class="form-wrap">
-    <a-form ref="formRef" :model="formData" :rules="rules">
+    <el-form ref="formRef" :model="formData" :rules="rules">
       <component
         :is="`${item.type}`"
         v-for="item in sortData"
@@ -11,7 +11,7 @@
         :name="item.name"
         @click="clickComp(item)"
       />
-    </a-form>
+    </el-form>
   </div>
 </template>
 
@@ -35,8 +35,6 @@ export default defineComponent({
     const { data } = toRefs(props);
 
     const formRef = ref();
-
-    const validate = () => formRef.value.validate();
 
     const names: Record<string, unknown> = {};
     data.value.forEach((item: any) => {
@@ -69,6 +67,18 @@ export default defineComponent({
         return copya.rank > copyb.rank ? 1 : -1;
       });
     });
+
+    const validate = () => {
+      return new Promise((resolve) => {
+        formRef.value.validate((valid: any, fields: any) => {
+          if (valid) {
+            resolve(formData);
+          } else {
+            console.log(fields);
+          }
+        });
+      });
+    };
 
     const clickComp = (item: DynamicTypes) => {
       if (item.build) {

@@ -1,13 +1,30 @@
 /** @format */
 
+@use './variable';
+
 :root {
-  --primary-color: #{$primary-color};
-  --secondary-color: #{$secondary-color};
+  --primary-color: #{variable.$primary-color};
+  --secondary-color: #{variable.$secondary-color};
 }
 
+body,
 ul,
 li {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-size: 14px;
+  color: var(--el-menu-text-color);
 }

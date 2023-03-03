@@ -39,7 +39,7 @@ import dndState from '../../composables/dndPlugin';
   width: 50px;
   height: 50px;
   cursor: pointer;
-  border: 1px solid $primary-color;
+  border: 1px solid var(--primary-color);
 
   &:not(:first-child) {
     margin-top: 10px;

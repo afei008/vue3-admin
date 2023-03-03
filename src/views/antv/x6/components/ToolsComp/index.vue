@@ -1,27 +1,22 @@
 <!-- @format -->
 
 <template>
-  <a-button type="primary" @click="translate">回到原点</a-button>
-  <a-button type="primary" :disabled="!history.isUndo" @click="undo">
+  <el-button type="primary" @click="translate">回到原点</el-button>
+  <el-button type="primary" :disabled="!history.isUndo" @click="undo">
     撤销
-  </a-button>
-  <a-button type="primary" :disabled="!history.isRedo" @click="redo">
+  </el-button>
+  <el-button type="primary" :disabled="!history.isRedo" @click="redo">
     重做
-  </a-button>
-  <a-button type="primary" @click="loadData">加载</a-button>
-  <a-button type="primary" @click="clearData">清空</a-button>
-  <a-button type="primary" @click="open">预览</a-button>
-  <a-modal
-    v-model:visible="show"
-    destroy-on-close
-    :closable="false"
-    width="1100px"
-  >
+  </el-button>
+  <el-button type="primary" @click="loadData">加载</el-button>
+  <el-button type="primary" @click="clearData">清空</el-button>
+  <el-button type="primary" @click="open">预览</el-button>
+  <el-dialog v-model="show" destroy-on-close :closable="false" width="1100px">
     <template #footer>
-      <a-button key="back" type="primary" @click="close">确认</a-button>
+      <el-button key="back" type="primary" @click="close">确认</el-button>
     </template>
     <div ref="viewRef" class="view-wrap" />
-  </a-modal>
+  </el-dialog>
 </template>
 
 <script lang="ts" setup name="ToolsComp">
@@ -107,6 +102,6 @@ const close = () => {
   height: 60vh;
   margin: auto;
   overflow: hidden;
-  border: 1px solid $primary-color;
+  border: 1px solid var(--primary-color);
 }
 </style>

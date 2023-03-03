@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, getCurrentInstance, computed, watch } from 'vue';
-import type Color from '../utils/color/color';
+import type Color from '../utils/color';
 import draggable from '../utils/draggable ';
 
 const props = defineProps<{

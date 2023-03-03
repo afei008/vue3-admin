@@ -1,49 +1,56 @@
 <!-- @format -->
 
 <template>
-  <a-layout-header class="app-header">
-    <a-row align="middle">
-      <a-col>
-        <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          @click="changeCollapsed"
-        />
-        <menu-fold-outlined v-else class="trigger" @click="changeCollapsed" />
-      </a-col>
-      <a-col>
-        <app-breadcrumb />
-      </a-col>
-      <a-col class="dropdown">
-        <a-dropdown>
-          <span class="ant-dropdown-link">
-            <img :src="avatar" class="avatar" />{{ nickname }}
-          </span>
-          <template #overlay>
-            <a-menu @click="clickMenu">
-              <a-menu-item :key="1"><link-outlined /> 项目地址</a-menu-item>
-              <a-menu-item :key="2"><user-outlined /> 个人中心</a-menu-item>
-              <a-menu-item :key="3"><setting-outlined /> 个人设置</a-menu-item>
-              <a-menu-divider />
-              <a-menu-item :key="0"><logout-outlined /> 退出登录</a-menu-item>
-            </a-menu>
-          </template>
-        </a-dropdown>
-      </a-col>
-    </a-row>
-    <app-tags />
-  </a-layout-header>
+  <div class="flex ac">
+    <el-icon v-if="collapsed" class="trigger" @click="changeCollapsed"
+      ><expand
+    /></el-icon>
+    <el-icon v-else class="trigger" @click="changeCollapsed"><fold /></el-icon>
+    <app-breadcrumb />
+    <div class="dropdown">
+      <el-dropdown @command="clickMenu">
+        <span class="dropdown-link flex ac">
+          <img :src="avatar" class="avatar" />{{ nickname }}
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item :command="1">
+              <el-icon><link-icon /></el-icon> 项目地址
+            </el-dropdown-item>
+            <el-dropdown-item :command="2">
+              <el-icon><user /></el-icon> 个人中心
+            </el-dropdown-item>
+            <el-dropdown-item :command="3">
+              <el-icon><setting /></el-icon> 个人设置
+            </el-dropdown-item>
+            <el-dropdown-item :command="0">
+              <el-icon><switch-button /></el-icon> 退出登录
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
+  </div>
+  <app-tags />
+
+  <el-dialog v-model="showDialog" title="退出登录" width="300px">
+    <span>确定退出登录吗？</span>
+    <template #footer>
+      <el-button type="primary" @click="clickConfirm">确定</el-button>
+      <el-button @click="clickCancel">取消</el-button>
+    </template>
+  </el-dialog>
 </template>
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue';
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  SettingOutlined,
-  LogoutOutlined,
-  LinkOutlined,
-} from '@ant-design/icons-vue';
+  Expand,
+  Fold,
+  Link as LinkIcon,
+  User,
+  Setting,
+  SwitchButton,
+} from '@element-plus/icons-vue';
 import AppBreadcrumb from './AppBreadcrumb.vue';
 import AppTags from './AppTags/index.vue';
 import useUserData from './composables/useUserData';
@@ -53,24 +60,28 @@ import collapsed from '../AppSidebar/composables/useCollapsed';
 export default defineComponent({
   name: 'AppHeader',
   components: {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    UserOutlined,
-    SettingOutlined,
-    LogoutOutlined,
-    LinkOutlined,
+    Expand,
+    Fold,
+    LinkIcon,
+    User,
+    Setting,
+    SwitchButton,
     AppBreadcrumb,
     AppTags,
   },
   setup() {
     const { nickname, avatar } = useUserData();
-    const { clickMenu } = useDropdownMethods();
+    const { clickMenu, showDialog, clickConfirm, clickCancel } =
+      useDropdownMethods();
 
     return {
       nickname,
       avatar,
       clickMenu,
       ...toRefs(collapsed),
+      showDialog,
+      clickConfirm,
+      clickCancel,
     };
   },
 });
@@ -84,7 +95,7 @@ export default defineComponent({
   transition: color 0.3s;
 
   &:hover {
-    color: #1890ff;
+    color: var(--primary-color);
   }
 }
 
@@ -92,11 +103,10 @@ export default defineComponent({
   margin-left: auto;
 }
 
-.ant-dropdown-link {
-  display: flex;
-  align-items: center;
+.dropdown-link {
   padding: 0 10px;
   cursor: pointer;
+  outline: 0;
 
   &:hover {
     background: rgba(0, 0, 0, 0.025);

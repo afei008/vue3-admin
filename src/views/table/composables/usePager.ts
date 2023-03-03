@@ -34,7 +34,11 @@ export default function usePager(pages: Ref, callback?: Cb): PagerTypes {
       page.currentPage = type === 'size' ? 1 : currentPage;
       page.pageSize = pageSize;
       if (callback) {
-        callback({ pageNum: page.currentPage, pageSize: page.pageSize });
+        callback({
+          pageNum: page.currentPage,
+          pageSize: page.pageSize,
+          isPageChange: 1,
+        });
       }
     },
   });

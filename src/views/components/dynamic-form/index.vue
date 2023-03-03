@@ -3,9 +3,11 @@
 <template>
   <div class="dynamic-form">
     <div class="head">
-      <a-button type="primary" @click="clickAddInput">新增文本框</a-button>
-      <a-button type="primary" @click="clickModal('data')">表单返回值</a-button>
-      <a-button type="primary" @click="clickModal('config')">预览</a-button>
+      <el-button type="primary" @click="clickAddInput">新增文本框</el-button>
+      <el-button type="primary" @click="clickModal('data')"
+        >表单返回值</el-button
+      >
+      <el-button type="primary" @click="clickModal('config')">预览</el-button>
     </div>
     <div class="body flex">
       <div class="left">
@@ -18,12 +20,12 @@
         <sidebar-comp :data="data" />
       </div>
     </div>
-    <a-modal v-model:visible="visible" title="请自行格式化代码查看">
+    <el-dialog v-model="visible" title="请自行格式化代码查看">
       {{ modalData }}
-    </a-modal>
-    <a-modal v-model:visible="show" title="实际效果" :destroy-on-close="true">
+    </el-dialog>
+    <el-dialog v-model="show" title="实际效果" :destroy-on-close="true">
       <dynamic-form-component ref="dynamicRef" :data="buildData" />
-    </a-modal>
+    </el-dialog>
   </div>
 </template>
 
@@ -52,7 +54,7 @@ export default defineComponent({
           placeholder: '请输入',
         },
         rank: 1,
-        // rule: [{ required: true, message: '请输入内容', trigger: 'blur' }],
+        rule: [{ required: true, message: '请输入内容', trigger: 'blur' }],
       },
       {
         type: 'Select',
@@ -82,7 +84,7 @@ export default defineComponent({
         type: 'Checkbox',
         label: '多选框',
         name: 'checkbox',
-        value: ['111'],
+        value: ['选项一'],
         options: [
           {
             value: '111',

@@ -1,42 +1,42 @@
 <!-- @format -->
 
 <template>
-  <a-row>
-    <a-col :span="24" class="col-24">
-      <a-row>
-        <a-col :span="4">没有input元素</a-col>
-        <a-col :span="10">
+  <el-row>
+    <el-col :span="24" class="col-24">
+      <el-row>
+        <el-col :span="4">没有input元素</el-col>
+        <el-col :span="10">
           <clipboard-component ref="clipboardRef">
             <p>this is message1</p>
             <p>this is message2</p>
             this is message 3 this is message 4
           </clipboard-component>
-        </a-col>
-        <a-col :span="10">
-          <a-button @click="clickCopy">复制</a-button>
-        </a-col>
-      </a-row>
-    </a-col>
-    <a-col :span="24" class="col-24">
-      <a-row>
-        <a-col :span="4">含有input元素</a-col>
-        <a-col :span="10">
+        </el-col>
+        <el-col :span="10">
+          <el-button @click="clickCopy">复制</el-button>
+        </el-col>
+      </el-row>
+    </el-col>
+    <el-col :span="24" class="col-24">
+      <el-row>
+        <el-col :span="4">含有input元素</el-col>
+        <el-col :span="10">
           <clipboard-component ref="clipboardRef2">
             <p>this is message1</p>
             <p>this is message2</p>
             this is message 3 this is message 4
-            <a-input v-model:value="value" />
+            <el-input v-model="value" />
             this is message 5
-            <a-textarea v-model:value="textareValue" />
+            <el-input v-model="textareValue" type="textarea" />
             <textarea id="" name="" cols="30" rows="10">123123123</textarea>
           </clipboard-component>
-        </a-col>
-        <a-col :span="10">
-          <a-button @click="clickCopy2">复制</a-button>
-        </a-col>
-      </a-row>
-    </a-col>
-  </a-row>
+        </el-col>
+        <el-col :span="10">
+          <el-button @click="clickCopy2">复制</el-button>
+        </el-col>
+      </el-row>
+    </el-col>
+  </el-row>
 </template>
 
 <script lang="ts">

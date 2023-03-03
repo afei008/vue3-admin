@@ -1,7 +1,6 @@
 /** @format */
 
-import { message } from 'ant-design-vue';
-import 'ant-design-vue/es/message/style/index';
+import { ElMessage } from 'element-plus';
 import { onMounted, reactive, toRefs, watch } from 'vue';
 
 export interface CustomerType {
@@ -69,7 +68,10 @@ export default function useIndexedDB(formParams: any) {
 
   const initIDB = () => {
     if (!window.indexedDB) {
-      message.error('您的浏览器不支持 IndexedDB');
+      ElMessage({
+        message: '您的浏览器不支持 IndexedDB',
+        type: 'error',
+      });
       return;
     }
     idb = window.indexedDB.open('myIdb');
@@ -94,7 +96,10 @@ export default function useIndexedDB(formParams: any) {
     const { sn } = params;
     const result = await getDBBySn(sn);
     if (result) {
-      message.error('数据已存在');
+      ElMessage({
+        message: '数据已存在',
+        type: 'error',
+      });
       return;
     }
     createTransaction([storeName], 'readwrite').add(params).onsuccess = () =>
@@ -114,7 +119,10 @@ export default function useIndexedDB(formParams: any) {
       // 把更新过的对象放回数据库
       const requestUpdate = objectStore.put(data);
       requestUpdate.onsuccess = () => {
-        message.success('操作成功');
+        ElMessage({
+          message: '操作成功',
+          type: 'success',
+        });
         getAllDB();
       };
     };

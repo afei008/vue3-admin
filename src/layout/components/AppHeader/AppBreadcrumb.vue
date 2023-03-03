@@ -1,16 +1,19 @@
 <!-- @format -->
 
 <template>
-  <a-breadcrumb :routes="routes" class="breadcrumb">
-    <template #itemRender="{ route, paths }">
-      <span v-if="routes.indexOf(route) === routes.length - 1">
-        {{ route.meta.title }}
+  <el-breadcrumb class="breadcrumb">
+    <el-breadcrumb-item v-for="(item, index) in routes" :key="item.path">
+      <span
+        v-if="item.redirect === 'noRedirect' || index == routes.length - 1"
+        class="no-redirect"
+      >
+        {{ item.meta.title }}
       </span>
-      <router-link v-else :to="`/${paths.join('/')}`">
-        {{ route.meta.title }}
+      <router-link v-else :to="item.path">
+        {{ item.meta.title }}
       </router-link>
-    </template>
-  </a-breadcrumb>
+    </el-breadcrumb-item>
+  </el-breadcrumb>
 </template>
 
 <script lang="ts">

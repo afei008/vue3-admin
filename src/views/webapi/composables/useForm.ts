@@ -12,8 +12,7 @@ interface FormTypes {
   formRef: Ref;
   formData: FormDataTypes;
   formParams: Ref<any>;
-  onFinishForm: (values: any) => void;
-  onFinishFailedForm: (values: any) => void;
+  submitForm: (values: any) => void;
   resetForm: () => void;
 }
 
@@ -27,12 +26,8 @@ export default function useForm(): FormTypes {
 
   const formParams = ref({ pageNum: 1, pageSize: 10 });
 
-  const onFinishForm = (values: any) => {
+  const submitForm = (values: any) => {
     formParams.value = { ...formData, ...values, pageNum: 1 };
-  };
-
-  const onFinishFailedForm = (err: any) => {
-    console.log('err', err);
   };
 
   const resetForm = () => {
@@ -43,8 +38,7 @@ export default function useForm(): FormTypes {
     formRef,
     formData,
     formParams,
-    onFinishForm,
-    onFinishFailedForm,
+    submitForm,
     resetForm,
   };
 }

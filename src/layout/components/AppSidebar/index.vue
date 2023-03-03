@@ -1,13 +1,7 @@
 <!-- @format -->
 
 <template>
-  <a-layout-sider
-    v-model:collapsed="collapsed"
-    class="app-sidebar"
-    breakpoint="lg"
-    :trigger="null"
-    collapsible
-  >
+  <el-aside class="app-sidebar" :class="{ collapsed: collapsed }">
     <div class="logo" />
     <template v-if="refresh">
       <overlay-scrollbars-component
@@ -15,32 +9,37 @@
         :options="{
           scrollbars: {
             autoHide: 'leave',
+            theme: 'os-theme-light',
           },
           overflow: {
             x: 'hidden',
           },
         }"
       >
-        <a-menu
-          v-model:selectedKeys="selectedKeys"
-          v-model:openKeys="openKeys"
-          theme="dark"
-          mode="inline"
-          class="app-menu"
-        >
-          <app-sidebar-item
-            v-for="route in routes"
-            :key="route.path"
-            :item="route"
-            :base-path="route.path"
-          />
-        </a-menu>
+        <div class="app-menu-wrap">
+          <el-menu
+            :default-active="active"
+            active-text-color="#fff"
+            background-color="#001529"
+            text-color="rgba(255, 255, 255, .65)"
+            class="app-menu"
+            :collapse="collapsed"
+          >
+            <app-sidebar-item
+              v-for="route in routes"
+              :key="route.path"
+              :item="route"
+              :base-path="route.path"
+            />
+          </el-menu>
+        </div>
       </overlay-scrollbars-component>
     </template>
-  </a-layout-sider>
+  </el-aside>
 </template>
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue';
+import { defineComponent, toRefs, ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue';
 import AppSidebarItem from './AppSidebarItem.vue';
 import useMenuKeys from './composables/useMenuKeys';
@@ -56,6 +55,12 @@ export default defineComponent({
   setup() {
     const { selectedKeys, openKeys } = useMenuKeys();
     const { refresh, routes } = useRefreshMenu();
+    const route = useRoute();
+    const active = ref('/dashboard/workplace');
+
+    onMounted(() => {
+      active.value = route.path;
+    });
 
     return {
       selectedKeys,
@@ -63,6 +68,7 @@ export default defineComponent({
       routes,
       refresh,
       ...toRefs(collapsed),
+      active,
     };
   },
 });

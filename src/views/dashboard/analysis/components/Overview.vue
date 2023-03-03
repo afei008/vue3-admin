@@ -1,17 +1,16 @@
 <!-- @format -->
 
 <template>
-  <a-row class="row">
-    <a-col v-for="item in 4" :key="item" class="col">
-      <a-card class="card">
+  <el-row class="row">
+    <el-col v-for="item in 4" :key="item" class="col">
+      <el-card class="card">
         <div class="head">
           <div class="meta flex jb">
             <span>总销售额</span>
             <span>
-              <a-tooltip>
-                <template #title>数据说明</template>
-                <info-circle-outlined />
-              </a-tooltip>
+              <el-tooltip content="数据说明">
+                <el-icon><warning /></el-icon>
+              </el-tooltip>
             </span>
           </div>
           <div class="total">￥126,560</div>
@@ -27,18 +26,18 @@
         <div class="foot">
           <span>日均销售额￥234.56</span>
         </div>
-      </a-card>
-    </a-col>
-  </a-row>
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { InfoCircleOutlined } from '@ant-design/icons-vue';
+import { Warning } from '@element-plus/icons-vue';
 
 export default defineComponent({
   name: 'OverviewIndex',
-  components: { InfoCircleOutlined },
+  components: { Warning },
 });
 </script>
 

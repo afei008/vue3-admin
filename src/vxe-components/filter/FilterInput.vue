@@ -2,11 +2,11 @@
 
 <template>
   <div class="filter-input">
-    <a-input
-      v-model:value="formData.data.name"
+    <el-input
+      v-model="formData.data.name"
       type="text"
       placeholder="支持回车筛选"
-      @pressEnter="keyupEvent"
+      @keyup.enter="keyupEvent"
     />
   </div>
 </template>

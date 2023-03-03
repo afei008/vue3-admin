@@ -12,8 +12,7 @@ import {
 import type { VxeGridInstance } from 'vxe-table';
 import XEUtils from 'xe-utils';
 import Sortable from 'sortablejs';
-import { message } from 'ant-design-vue';
-import 'ant-design-vue/es/message/style/index';
+import { ElMessage } from 'element-plus';
 
 interface DragTableTypes {
   gridRef: Ref<VxeGridInstance>;
@@ -113,7 +112,10 @@ export default function useDragTable(
               // 错误的移动
               const oldTrElem = wrapperEl.children[oldIndex];
               wrapperEl.insertBefore(targetTrEl, oldTrElem);
-              message.error('不允许自己给自己拖动');
+              ElMessage({
+                message: '不允许自己给自己拖动',
+                type: 'error',
+              });
             }
             const currRow = selfNode.items.splice(selfNode.index, 1)[0];
             if ($grid.isTreeExpandByRow(prevRow)) {
@@ -173,7 +175,7 @@ export default function useDragTable(
             } else {
               insertAfter(targetThEl, oldThEl);
             }
-            return message.error('固定列不允许拖动');
+            return ElMessage({ message: '固定列不允许拖动', type: 'error' });
           }
           // 转换真实索引
           const oldColumnIndex = $grid.getColumnIndex(tableColumn[oldIndex]);

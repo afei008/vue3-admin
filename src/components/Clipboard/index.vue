@@ -7,8 +7,7 @@
 </template>
 
 <script lang="ts">
-import { message } from 'ant-design-vue';
-import 'ant-design-vue/es/message/style/index';
+import { ElMessage } from 'element-plus';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
@@ -17,7 +16,7 @@ export default defineComponent({
     const contentRef = ref();
 
     const success = () => {
-      message.success('复制成功');
+      ElMessage.success('复制成功');
     };
 
     const hasInput = (nodes: Array<Element>) => {

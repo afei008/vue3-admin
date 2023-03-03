@@ -8,29 +8,33 @@
       :to="{ path: item.path }"
       custom
     >
-      <a-dropdown :trigger="['contextmenu']">
-        <a-tag
-          class="app-tags-item"
+      <el-dropdown trigger="contextmenu" class="app-tags-item">
+        <el-tag
           :class="isActive(item) ? 'tag-active' : ''"
+          :effect="isActive(item) ? 'dark' : 'light'"
           closable
           @click="clickTag(item)"
           @close="closeTag(item)"
         >
           {{ item.title }}
-        </a-tag>
-        <template #overlay>
-          <a-menu>
-            <a-menu-item key="1" @click="refreshTag(item)">刷新</a-menu-item>
-            <a-menu-item key="2" @click="closeTag(item)">关闭</a-menu-item>
-            <a-menu-item key="3" @click="closeOthersTags(item)">
+        </el-tag>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item key="1" @click="refreshTag(item)">
+              刷新
+            </el-dropdown-item>
+            <el-dropdown-item key="2" @click="closeTag(item)">
+              关闭
+            </el-dropdown-item>
+            <el-dropdown-item key="3" @click="closeOthersTags(item)">
               关闭其他
-            </a-menu-item>
-            <a-menu-item key="4" @click="closeAllTags(item)">
+            </el-dropdown-item>
+            <el-dropdown-item key="4" @click="closeAllTags(item)">
               关闭所有
-            </a-menu-item>
-          </a-menu>
+            </el-dropdown-item>
+          </el-dropdown-menu>
         </template>
-      </a-dropdown>
+      </el-dropdown>
     </router-link>
   </div>
 </template>
@@ -78,23 +82,8 @@ export default defineComponent({
 :deep(.app-tags-item) {
   cursor: pointer;
 
-  &.tag-active {
-    color: #fff;
-    background: var(--secondary-color);
-    border-color: var(--secondary-color);
-
-    .anticon {
-      color: #fff;
-    }
-  }
-
-  .anticon {
-    padding: 2px;
-    border-radius: 50%;
-
-    &:hover {
-      background: #d9d9d9;
-    }
+  & + .app-tags-item {
+    margin-left: 10px;
   }
 }
 </style>

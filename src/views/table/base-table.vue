@@ -1,33 +1,30 @@
 <!-- @format -->
 
 <template>
-  <a-spin :spinning="isLoading">
-    <vxe-grid v-bind="gridOptions">
-      <template #operator="{ row }">
-        <span>{{ row.operator }}</span>
-      </template>
-      <template #handle="{ row }">
-        <a-button type="primary" @click="clickSetting(row.id)">
-          订阅报警
-        </a-button>
-      </template>
-      <template #pager>
-        <vxe-pager
-          v-model:current-page="page.currentPage"
-          v-model:page-size="page.pageSize"
-          background
-          :total="page.totalResult"
-          :layouts="page.layouts"
-          @page-change="page.pageChange"
-        />
-      </template>
-    </vxe-grid>
-  </a-spin>
+  <vxe-grid v-bind="gridOptions" :loading="isLoading">
+    <template #operator="{ row }">
+      <span>{{ row.operator }}</span>
+    </template>
+    <template #handle="{ row }">
+      <el-button type="primary" @click="clickSetting(row.id)">
+        订阅报警
+      </el-button>
+    </template>
+    <template #pager>
+      <vxe-pager
+        v-model:current-page="page.currentPage"
+        v-model:page-size="page.pageSize"
+        background
+        :total="page.totalResult"
+        :layouts="page.layouts"
+        @page-change="page.pageChange"
+      />
+    </template>
+  </vxe-grid>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { message } from 'ant-design-vue';
-import 'ant-design-vue/es/message/style/index';
+import { ElMessage } from 'element-plus';
 import useArticle from './composables/useArticle';
 import useBaseTable from './composables/useBaseTable';
 import usePager from './composables/usePager';
@@ -52,7 +49,10 @@ export default defineComponent({
     const { page } = usePager(pages, changeParams);
 
     const clickSetting = (id: number) => {
-      message.info(`订阅成功${id}`);
+      ElMessage({
+        message: `订阅成功${id}`,
+        type: 'success',
+      });
     };
 
     return {

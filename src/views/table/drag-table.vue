@@ -1,28 +1,28 @@
 <!-- @format -->
 
 <template>
-  <a-spin :spinning="isLoading">
-    <vxe-grid ref="gridRef" v-bind="gridOptions">
+  <div>
+    <vxe-grid ref="gridRef" v-bind="gridOptions" :loading="isLoading">
       <template #dragBtn>
         <span class="drag-btn">
-          <drag-outlined />
+          <el-icon><rank /></el-icon>
         </span>
       </template>
       <template #dragTip>
-        <a-tooltip placement="top">
-          <template #title>
+        <el-tooltip placement="top">
+          <template #content>
             <span>按住后表头和首航可拖动</span>
           </template>
-          <question-circle-outlined />
-        </a-tooltip>
+          <el-icon><warning /></el-icon>
+        </el-tooltip>
       </template>
       <template #operator="{ row }">
         <span>{{ row.operator }}</span>
       </template>
       <template #handle="{ row }">
-        <a-button type="primary" @click="clickSetting(row.id)">
+        <el-button type="primary" @click="clickSetting(row.id)">
           订阅报警
-        </a-button>
+        </el-button>
       </template>
       <template #pager>
         <vxe-pager
@@ -38,13 +38,12 @@
 
     <p>行id--{{ gridOptions?.data?.map((item: any) => item.id) }}</p>
     <p>列名称--{{ currentColumns?.map((item: any) => item.field) }}</p>
-  </a-spin>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { DragOutlined, QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { message } from 'ant-design-vue';
-import 'ant-design-vue/es/message/style/index';
+import { Rank, Warning } from '@element-plus/icons-vue';
+import { ElMessage } from 'element-plus';
 import useArticle from './composables/useArticle';
 import useDragTable from './composables/useDragTable';
 import usePager from './composables/usePager';
@@ -52,8 +51,8 @@ import usePager from './composables/usePager';
 export default defineComponent({
   name: 'DragTable',
   components: {
-    DragOutlined,
-    QuestionCircleOutlined,
+    Rank,
+    Warning,
   },
   setup() {
     const params = ref({
@@ -73,7 +72,10 @@ export default defineComponent({
     const { page } = usePager(pages, changeParams);
 
     const clickSetting = (id: number) => {
-      message.info(`订阅成功${id}`);
+      ElMessage({
+        message: `订阅成功${id}`,
+        type: 'success',
+      });
     };
 
     return {

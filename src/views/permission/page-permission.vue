@@ -2,12 +2,12 @@
 
 <template>
   <p>当前权限:{{ currRole }}</p>
-  <a-button :type="btnType('admin')" @click="changePermission('admin')">
+  <el-button :type="btnType('admin')" @click="changePermission('admin')">
     admin
-  </a-button>
-  <a-button :type="btnType('editor')" @click="changePermission('editor')">
+  </el-button>
+  <el-button :type="btnType('editor')" @click="changePermission('editor')">
     editor
-  </a-button>
+  </el-button>
   <p>切换权限时，左侧的权限测试菜单会变化</p>
 </template>
 <script lang="ts">

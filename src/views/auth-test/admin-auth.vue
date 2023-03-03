@@ -3,8 +3,8 @@
 <template>
   <div>
     admin auth
-    <a-button @click="changePermission('admin')">admin</a-button>
-    <a-button @click="changePermission('editor')">editor</a-button>
+    <el-button @click="changePermission('admin')">admin</el-button>
+    <el-button @click="changePermission('editor')">editor</el-button>
   </div>
 </template>
 

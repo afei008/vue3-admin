@@ -1,38 +1,35 @@
 <!-- @format -->
 
 <template>
-  <a-spin :spinning="isLoading">
+  <div v-loading="isLoading">
     <div class="form">
-      <a-form
-        ref="formRef"
-        :model="formData"
-        layout="inline"
-        autocomplete="off"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
-      >
-        <a-form-item label="状态" name="status">
-          <a-select
+      <el-form ref="formRef" :model="formData" :inline="true">
+        <el-form-item label="状态" name="status">
+          <el-select
             ref="statusSelect"
             v-model:value="formData.status"
             placeholder="请选择"
             style="width: 100px"
             :options="statusOptions"
           />
-        </a-form-item>
+        </el-form-item>
 
-        <a-form-item label="操作人" name="operator">
-          <a-input v-model:value="formData.operator" />
-        </a-form-item>
+        <el-form-item label="操作人" name="operator">
+          <el-input v-model:value="formData.operator" />
+        </el-form-item>
 
-        <a-form-item>
-          <a-button type="primary" html-type="submit">查询</a-button>
-          <a-button style="margin-left: 10px" @click="resetForm">重置</a-button>
-        </a-form-item>
-      </a-form>
+        <el-form-item>
+          <el-button type="primary" html-type="submit" @click="submitForm">
+            查询
+          </el-button>
+          <el-button style="margin-left: 10px" @click="resetForm"
+            >重置
+          </el-button>
+        </el-form-item>
+      </el-form>
     </div>
     <p class="checkboxs">
-      <a-checkbox
+      <el-checkbox
         v-for="(column, index) in gridOptions.columns"
         :key="index"
         v-model:checked="column.visible"
@@ -43,7 +40,7 @@
         <template v-else>
           {{ column.title }}
         </template>
-      </a-checkbox>
+      </el-checkbox>
     </p>
     <div class="table">
       <vxe-grid
@@ -57,9 +54,9 @@
           <span>{{ row.operator }}</span>
         </template>
         <template #handle="{ row }">
-          <a-button type="primary" @click="clickSetting(row.id)">
+          <el-button type="primary" @click="clickSetting(row.id)">
             订阅报警
-          </a-button>
+          </el-button>
         </template>
         <template #pager>
           <div class="pager-left">
@@ -80,12 +77,11 @@
         </template>
       </vxe-grid>
     </div>
-  </a-spin>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
-import { message } from 'ant-design-vue';
-import 'ant-design-vue/es/message/style/index';
+import { ElMessage } from 'element-plus';
 import { OverlayScrollbars } from 'overlayscrollbars';
 import useArticle from './composables/useArticle';
 import useForm from './composables/useForm';
@@ -95,25 +91,21 @@ import usePager from './composables/usePager';
 export default defineComponent({
   name: 'AdvancedTable',
   setup() {
-    const {
-      formData,
-      params,
-      onFinish,
-      onFinishFailed,
-      statusOptions,
-      resetForm,
-      formRef,
-    } = useForm();
+    const { formData, params, submitForm, statusOptions, resetForm, formRef } =
+      useForm();
 
     const { isLoading, articleList, pages } = useArticle(params);
 
     const { gridRef, gridOptions, changeColumn, gridCheckeds } =
       useAdvancedTable(articleList);
 
-    const { page } = usePager(pages, onFinish);
+    const { page } = usePager(pages, submitForm);
 
     const clickSetting = (id: number) => {
-      message.info(`订阅成功${id}`);
+      ElMessage({
+        message: `订阅成功${id}`,
+        type: 'success',
+      });
     };
 
     onMounted(() => {
@@ -138,8 +130,7 @@ export default defineComponent({
       clickSetting,
       formRef,
       formData,
-      onFinish,
-      onFinishFailed,
+      submitForm,
       statusOptions,
       resetForm,
       changeColumn,
@@ -154,7 +145,7 @@ export default defineComponent({
 }
 
 .table {
-  height: calc(100vh - 94px - 40px - 32px - 20px);
+  height: calc(100vh - 80px - 40px - 32px - 20px);
 }
 
 .checkboxs {

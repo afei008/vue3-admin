@@ -3,63 +3,70 @@
 <template>
   <div>
     <div class="form">
-      <a-form
-        ref="formRef"
-        :model="formData"
-        layout="inline"
-        autocomplete="off"
-        @finish="onFinishForm"
-        @finishFailed="onFinishFailedForm"
-      >
-        <a-form-item label="sn码" name="sn">
-          <a-input v-model:value="formData.sn" />
-        </a-form-item>
-        <a-form-item label="姓名" name="name">
-          <a-input v-model:value="formData.name" />
-        </a-form-item>
+      <el-form ref="formRef" :model="formData" :inline="true">
+        <el-form-item label="sn码" prop="sn">
+          <el-input v-model="formData.sn" />
+        </el-form-item>
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="formData.name" />
+        </el-form-item>
 
-        <a-form-item>
-          <a-button type="primary" html-type="submit">查询</a-button>
-          <a-button style="margin-left: 10px" @click="resetForm">重置</a-button>
-          <a-button style="margin-left: 10px" @click="clickAdd">新增</a-button>
-        </a-form-item>
-      </a-form>
+        <el-form-item>
+          <el-button type="primary" html-type="submit" @click="submitForm"
+            >查询
+          </el-button>
+          <el-button style="margin-left: 10px" @click="resetForm"
+            >重置
+          </el-button>
+          <el-button style="margin-left: 10px" @click="clickAdd">
+            新增
+          </el-button>
+        </el-form-item>
+      </el-form>
     </div>
     <div class="table">
       <vxe-grid v-bind="gridOptions">
         <template #handle="{ row }">
-          <a-button type="primary" @click="clickEdit(row)"> 编辑 </a-button>
-          <a-button
+          <el-button type="primary" @click="clickEdit(row)"> 编辑 </el-button>
+          <el-button
             style="margin-left: 10px"
             type="primary"
             @click="clickDel(row)"
           >
             删除
-          </a-button>
+          </el-button>
         </template>
       </vxe-grid>
     </div>
-    <a-modal
-      v-model:visible="showModal"
+    <el-dialog
+      v-model="showModal"
       title="Basic Modal"
-      @ok="clickAddOk"
-      @cancel="clickAddCancel"
+      :destroy-on-close="true"
+      @close="closeDialog"
     >
-      <a-form :label-col="{ span: 4 }" :wrapper-col="{ span: 14 }">
-        <a-form-item label="ssn码" v-bind="modalValidateInfos.sn">
-          <a-input v-model:value="modelRef.sn" :disabled="!isAdd" />
-        </a-form-item>
-        <a-form-item label="姓名" v-bind="modalValidateInfos.name">
-          <a-input v-model:value="modelRef.name" />
-        </a-form-item>
-        <a-form-item label="年龄" v-bind="modalValidateInfos.age">
-          <a-input v-model:value="modelRef.age" />
-        </a-form-item>
-        <a-form-item label="邮箱" v-bind="modalValidateInfos.email">
-          <a-input v-model:value="modelRef.email" />
-        </a-form-item>
-      </a-form>
-    </a-modal>
+      <el-form
+        ref="modelFormRef"
+        :model="modelFormData"
+        :rules="modelFormRules"
+      >
+        <el-form-item label="ssn码" prop="sn">
+          <el-input v-model="modelFormData.sn" :disabled="!isAdd" />
+        </el-form-item>
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="modelFormData.name" />
+        </el-form-item>
+        <el-form-item label="年龄" prop="age">
+          <el-input v-model="modelFormData.age" />
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="modelFormData.email" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button type="primary" @click="clickAddOk">确定</el-button>
+        <el-button @click="clickAddCancel">取消</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -76,22 +83,10 @@ export default defineComponent({
     const isAdd = ref(true);
     const editSn = ref('');
 
-    const {
-      formRef,
-      formData,
-      formParams,
-      onFinishForm,
-      onFinishFailedForm,
-      resetForm,
-    } = useForm();
+    const { formRef, formData, formParams, submitForm, resetForm } = useForm();
 
-    const {
-      showModal,
-      modelRef,
-      modalValidateInfos,
-      modalResetFields,
-      modalValidate,
-    } = useModal();
+    const { showModal, modelFormRef, modelFormData, modelFormRules } =
+      useModal();
 
     const { addDB, putDB, delDB, idbList } = useIndexedDB(formParams);
 
@@ -102,27 +97,41 @@ export default defineComponent({
       isAdd.value = true;
     };
 
-    const clickAddOk = () => {
-      modalValidate()
-        .then(() => {
+    const closeDialog = () => {
+      modelFormData.sn = '';
+      modelFormData.name = '';
+      modelFormData.age = '';
+      modelFormData.email = '';
+    };
+
+    const clickAddCancel = () => {
+      showModal.value = false;
+      closeDialog();
+    };
+    const clickAddOk = async () => {
+      if (!modelFormRef.value) {
+        return;
+      }
+      await modelFormRef.value.validate((valid, fields) => {
+        if (valid) {
           showModal.value = false;
           if (isAdd.value) {
-            addDB(toRaw(modelRef));
+            addDB(toRaw(modelFormData));
           } else {
-            putDB(editSn.value, toRaw(modelRef));
+            putDB(editSn.value, toRaw(modelFormData));
           }
-        })
-        .catch((err) => console.log('error', err));
-    };
-    const clickAddCancel = () => {
-      modalResetFields();
+          clickAddCancel();
+        } else {
+          console.log('error', fields);
+        }
+      });
     };
 
     const clickEdit = (row: CustomerType) => {
       isAdd.value = false;
       showModal.value = true;
       editSn.value = row.sn;
-      Object.assign(modelRef, row);
+      Object.assign(modelFormData, row);
     };
 
     const clickDel = (row: CustomerType) => {
@@ -133,19 +142,20 @@ export default defineComponent({
       formRef,
       formData,
       formParams,
-      onFinishForm,
-      onFinishFailedForm,
+      submitForm,
       resetForm,
       gridOptions,
       showModal,
-      modelRef,
-      modalValidateInfos,
+      modelFormRef,
+      modelFormData,
+      modelFormRules,
       clickAdd,
       clickAddOk,
       clickAddCancel,
       clickEdit,
       clickDel,
       isAdd,
+      closeDialog,
     };
   },
 });
@@ -157,6 +167,6 @@ export default defineComponent({
 }
 
 .table {
-  height: calc(100vh - 94px - 40px - 32px - 20px);
+  height: calc(100vh - 80px - 40px - 32px - 20px);
 }
 </style>

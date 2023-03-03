@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { onMounted, reactive, watch, toRefs, type Ref } from 'vue';
-import useCurrentInstance from '@/composables/useCurrentInstance';
+import API from '@/api';
 
 interface DutyTypes {
   isLoading: Ref<boolean>;
@@ -12,8 +12,6 @@ interface DutyTypes {
 }
 
 export default function useDuty(params: Record<string, any>): DutyTypes {
-  const { proxy } = useCurrentInstance();
-
   const state = reactive({
     isLoading: false,
     dutyList: [],
@@ -26,7 +24,7 @@ export default function useDuty(params: Record<string, any>): DutyTypes {
 
   const getDutyList = async () => {
     state.isLoading = true;
-    const res = await proxy.$api.dutyList(params.value);
+    const res = await API.dutyList(params.value);
     state.dutyList = res.data.records;
     state.pages.total = res.data.total;
     state.isLoading = false;

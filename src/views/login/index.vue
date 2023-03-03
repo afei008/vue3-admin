@@ -3,76 +3,74 @@
 <template>
   <div class="login">
     <div class="form bg-white">
-      <a-form
+      <el-form
+        ref="formRef"
         :model="formData"
         name="basic"
-        :label-col="{ span: 7 }"
-        :wrapper-col="{ span: 17 }"
-        autocomplete="off"
+        label-width="80px"
         :rules="rules"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
       >
-        <a-form-item label="Username" name="username">
-          <a-input
-            v-model:value="formData.username"
-            placeholder="admin or editor"
-          />
-        </a-form-item>
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="formData.username" placeholder="admin or editor" />
+        </el-form-item>
 
-        <a-form-item label="Password" name="password">
-          <a-input-password
-            v-model:value="formData.password"
+        <el-form-item label="密码" prop="password">
+          <el-input
+            v-model="formData.password"
             placeholder="any"
+            type="password"
+            show-password
+            @keyup.enter="submitForm"
           />
-        </a-form-item>
+        </el-form-item>
 
-        <a-form-item name="remember" :wrapper-col="{ offset: 7, span: 17 }">
-          <a-checkbox v-model:checked="formData.remember">
-            Remember me
-          </a-checkbox>
-        </a-form-item>
+        <el-form-item>
+          <el-checkbox v-model="formData.remeber">Remeber me</el-checkbox>
+        </el-form-item>
 
-        <a-form-item :wrapper-col="{ offset: 7, span: 17 }">
-          <a-button type="primary" html-type="submit" :loading="isLoading">
-            Submit
-          </a-button>
-        </a-form-item>
-      </a-form>
+        <el-form-item>
+          <el-button type="primary" :loading="isLoading" @click="submitForm">
+            登录
+          </el-button>
+        </el-form-item>
+      </el-form>
     </div>
     <rain />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue';
-import type { RuleObject } from 'ant-design-vue/lib/form/interface';
+import type { FormInstance } from 'element-plus';
 import { useUserStore } from '@/store/modules/user';
 import Rain from '@/components/Rain/index.vue';
 
 interface FormTypes {
   username: string;
   password: string;
-  remember: boolean;
+  remeber: boolean;
 }
+
 export default defineComponent({
   name: 'LoginIndex',
   components: { Rain },
   setup() {
     const userStore = useUserStore();
+    const isLoading = ref<boolean>(false);
+    const formRef = ref<FormInstance>();
     const formData = reactive<FormTypes>({
       username: '',
       password: '',
-      remember: true,
+      remeber: true,
     });
-    const isLoading = ref<boolean>(false);
-    const checkUsername = async (_rule: RuleObject, value: string) => {
+
+    const checkUsername = async (rule: any, value: string, callback: any) => {
       if (value === '') {
-        return Promise.reject(new Error('请输入用户名'));
+        callback(new Error('请输入用户名'));
       }
       if (value !== 'admin' && value !== 'editor') {
-        return Promise.reject(new Error('请输入admin或editor'));
+        callback(new Error('请输入admin或editor'));
       }
-      return Promise.resolve();
+      callback();
     };
     const rules = {
       username: [
@@ -80,23 +78,31 @@ export default defineComponent({
       ],
       password: [{ required: true, message: '请输入密码' }],
     };
-    const onFinish = (values: FormTypes) => {
-      const { username, password } = values;
-      isLoading.value = true;
-      userStore.login({ username, password }).finally(() => {
-        isLoading.value = false;
+
+    const submitForm = async () => {
+      if (!formRef.value) {
+        return;
+      }
+      await formRef.value.validate((valid, fields) => {
+        if (valid) {
+          isLoading.value = true;
+          userStore
+            .login({ username: formData.username, password: formData.password })
+            .finally(() => {
+              isLoading.value = false;
+            });
+        } else {
+          console.log('error submit', fields);
+        }
       });
     };
 
-    const onFinishFailed = (err: any) => {
-      console.log('Failed:', err);
-    };
     return {
+      formRef,
       formData,
       rules,
       isLoading,
-      onFinish,
-      onFinishFailed,
+      submitForm,
     };
   },
 });
@@ -111,6 +117,8 @@ export default defineComponent({
 }
 
 .form {
+  box-sizing: border-box;
+  width: 350px;
   padding: 30px;
 }
 </style>

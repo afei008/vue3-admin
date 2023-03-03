@@ -10,8 +10,9 @@ import {
   VxeTableResolve,
 } from 'vite-plugin-style-import';
 import Components from 'unplugin-vue-components/vite';
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import viteCompression from 'vite-plugin-compression';
+import AutoImport from 'unplugin-auto-import/vite';
 
 // eslint-disable-next-line no-control-regex
 const INVALID_CHAR_REGEX = /[\x00-\x1F\x7F<>*#"{}|^[\]`;?:&=+$,]/g;
@@ -33,10 +34,13 @@ const project = (url: string) =>
       createStyleImportPlugin({
         resolves: [VxeTableResolve()],
       }),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
       Components({
         resolvers: [
-          AntDesignVueResolver({
-            importStyle: 'less',
+          ElementPlusResolver({
+            importStyle: 'sass',
           }),
         ],
       }),
@@ -49,14 +53,8 @@ const project = (url: string) =>
     },
     css: {
       preprocessorOptions: {
-        less: {
-          modifyVars: {
-            'primary-color': '#e14e6f',
-          },
-          javascriptEnabled: true,
-        },
         scss: {
-          additionalData: `@import '@/styles/_variable.scss';`,
+          additionalData: `@use '@/styles/theme/element.scss' as *;`,
         },
       },
     },
@@ -79,9 +77,19 @@ const project = (url: string) =>
         output: {
           manualChunks: {
             // 拆分代码，这个就是分包，配置完后自动按需加载，现在还比不上webpack的splitchunk，不过也能用了。
-            vue: ['vue', 'vue-router'],
-            antd: ['ant-design-vue'],
+            vue: ['vue', 'vue-router', 'pinia'],
+            elemenuPlus: ['element-plus', '@element-plus/icons-vue'],
             echarts: ['echarts'],
+            d3: ['d3'],
+            antvx6: [
+              '@antv/x6',
+              '@antv/x6-plugin-dnd',
+              '@antv/x6-plugin-history',
+              '@antv/x6-plugin-snapline',
+              '@antv/x6-plugin-transform',
+              '@antv/x6-vue-shape',
+            ],
+            overlayscrollbars: ['overlayscrollbars', 'overlayscrollbars-vue'],
           },
           // 修复部署到 github.io /assets/_plugin-vue_export-helper.cdc0426e.js 引入失败问题
           sanitizeFileName(name) {

@@ -1,14 +1,12 @@
 /** @format */
 
 import { createApp, type ComponentPublicInstance } from 'vue';
-import useAntd from '@/init/antd';
 import comp from './comp.vue';
 
 // 方法 1，因为上下文丢失，需要重新引入 store 和组件库
 function createComponent(options = {}): ComponentPublicInstance {
   const app = createApp(comp, options);
   const el = document.createElement('div');
-  app.use(useAntd);
   const instance = app.mount(el);
   return instance.$el;
 }

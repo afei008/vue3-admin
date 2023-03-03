@@ -4,15 +4,15 @@
   <div v-if="!item?.meta?.hidden">
     <template v-if="onlyChild">
       <app-link v-if="onlyChild.meta" :to="resolvePath(onlyChild.path)">
-        <a-menu-item :key="resolvePath(onlyChild.path)">
+        <el-menu-item :index="resolvePath(onlyChild.path)">
           <title-item
             :title="onlyChild.meta.title"
             :icon="onlyChild.meta.icon || item.meta.icon"
           />
-        </a-menu-item>
+        </el-menu-item>
       </app-link>
     </template>
-    <a-sub-menu v-else :key="resolvePath(item.path)">
+    <el-sub-menu v-else :index="resolvePath(item.path)">
       <template #title>
         <title-item :title="item.meta.title" :icon="item.meta.icon" />
       </template>
@@ -24,7 +24,7 @@
         :base-path="resolvePath(item.path)"
         class="nest-menu"
       />
-    </a-sub-menu>
+    </el-sub-menu>
   </div>
 </template>
 <script lang="ts">

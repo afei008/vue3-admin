@@ -1,27 +1,29 @@
 <!-- @format -->
 
 <template>
-  <p>当前权限:{{ currRole }}</p>
-  <a-button :type="btnType('admin')" @click="changePermission('admin')">
-    admin
-  </a-button>
-  <a-button :type="btnType('editor')" @click="changePermission('editor')">
-    editor
-  </a-button>
-  <div :key="key">
-    <p v-permission="['admin']">
-      只有 admin 才能看到该文字
-      <span>v-permission="['admin']"</span>
-    </p>
-    <p v-permission="['editor']">
-      只有 editor 才能看到该文字
-      <span>v-permission="['editor']"</span>
-    </p>
-    <p v-permission="['admin', 'editor']">
-      admin 和 editor 都能看到该文字
-      <span>v-permission="['admin', 'editor']"</span>
-    </p>
-    <p>不适合使用 v-permission 的情况下，请手动设置 v-if 实现</p>
+  <div>
+    <p>当前权限:{{ currRole }}</p>
+    <el-button :type="btnType('admin')" @click="changePermission('admin')">
+      admin
+    </el-button>
+    <el-button :type="btnType('editor')" @click="changePermission('editor')">
+      editor
+    </el-button>
+    <div :key="key">
+      <p v-permission="['admin']">
+        只有 admin 才能看到该文字
+        <span>v-permission="['admin']"</span>
+      </p>
+      <p v-permission="['editor']">
+        只有 editor 才能看到该文字
+        <span>v-permission="['editor']"</span>
+      </p>
+      <p v-permission="['admin', 'editor']">
+        admin 和 editor 都能看到该文字
+        <span>v-permission="['admin', 'editor']"</span>
+      </p>
+      <p>不适合使用 v-permission 的情况下，请手动设置 v-if 实现</p>
+    </div>
   </div>
 </template>
 <script lang="ts">

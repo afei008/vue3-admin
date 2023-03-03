@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { onMounted, reactive, watch, toRefs, type Ref } from 'vue';
-import useCurrentInstance from '@/composables/useCurrentInstance';
+import API from '@/api';
 
 interface ArticleTypes {
   isLoading: Ref<boolean>;
@@ -12,8 +12,6 @@ interface ArticleTypes {
 }
 
 export default function useArticle(params: Record<string, any>): ArticleTypes {
-  const { proxy } = useCurrentInstance();
-
   const state = reactive({
     isLoading: false,
     articleList: [],
@@ -26,7 +24,7 @@ export default function useArticle(params: Record<string, any>): ArticleTypes {
 
   const getArticleList = async () => {
     state.isLoading = true;
-    const res = await proxy.$api.articleList(params.value);
+    const res = await API.articleList(params.value);
     state.articleList = res.data.records;
     state.pages.total = res.data.total;
     state.isLoading = false;

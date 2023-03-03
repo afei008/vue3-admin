@@ -3,22 +3,19 @@
 <template>
   <div class="filter-content">
     <div class="filter-head">
-      <a-input-search
-        v-model:value="formData.data.searchValue"
-        placeholder="搜索"
-        @search="searchEvent"
-      />
+      <el-input v-model="formData.data.searchValue" placeholder="搜索">
+        <template #append>
+          <el-button :icon="Search" @click="searchEvent" />
+        </template>
+      </el-input>
     </div>
     <div class="filter-body">
       <template v-if="optionState.valList.length">
         <ul class="list list-head">
           <li class="list-item">
-            <a-checkbox
-              v-model:checked="optionState.isAll"
-              @change="changeAllEvent"
-            >
+            <el-checkbox v-model="optionState.isAll" @change="changeAllEvent">
               全选
-            </a-checkbox>
+            </el-checkbox>
           </li>
         </ul>
         <ul class="list list-body">
@@ -27,9 +24,7 @@
             :key="sIndex"
             class="list-item"
           >
-            <a-checkbox v-model:checked="item.checked">{{
-              item.value
-            }}</a-checkbox>
+            <el-checkbox v-model="item.checked">{{ item.value }}</el-checkbox>
           </li>
         </ul>
       </template>
@@ -38,8 +33,8 @@
       </template>
     </div>
     <div class="filter-footer">
-      <a-button type="primary" @click="confirmFilterEvent">确认</a-button>
-      <a-button @click="resetFilterEvent">重置</a-button>
+      <el-button type="primary" @click="confirmFilterEvent">确认</el-button>
+      <el-button @click="resetFilterEvent">重置</el-button>
     </div>
   </div>
 </template>
@@ -48,6 +43,7 @@
 import { defineComponent, type PropType, reactive } from 'vue';
 import type { VxeGlobalRendererHandles } from 'vxe-table';
 import XEUtils from 'xe-utils';
+import { Search } from '@element-plus/icons-vue';
 
 export default defineComponent({
   name: 'FilterContent',
@@ -156,6 +152,7 @@ export default defineComponent({
       changeAllEvent,
       confirmFilterEvent,
       resetFilterEvent,
+      Search,
     };
   },
 });
@@ -197,10 +194,6 @@ export default defineComponent({
     .list-empty {
       padding: 20px 0;
       text-align: center;
-    }
-
-    .list-item {
-      padding: 2px 0;
     }
   }
 }

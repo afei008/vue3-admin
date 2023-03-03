@@ -2,45 +2,58 @@
 
 <template>
   <div class="sidebar">
-    <a-collapse v-model:activeKey="activeKey">
-      <a-collapse-panel key="1" header="基础">
+    <el-collapse v-model:activeKey="activeKey">
+      <el-collapse-item key="1" title="基础">
         <div class="flex">
-          <a-input v-model:value="prop.name">
-            <template #addonBefore>
+          <el-input v-model:value="prop.name">
+            <template #prefix>
               <div class="addon-before">绑定值</div>
             </template>
-          </a-input>
-          <a-input v-model:value="prop.label">
-            <template #addonBefore>
+          </el-input>
+          <el-input v-model:value="prop.label">
+            <template #prefix>
               <div class="addon-before">标签</div>
             </template>
-          </a-input>
+          </el-input>
         </div>
         <div class="flex">
-          <a-input v-if="prop.attrs" v-model:value="prop.attrs.placeholder">
-            <template #addonBefore>
+          <el-input v-if="prop.attrs" v-model="prop.attrs.placeholder">
+            <template #prefix>
               <div class="addon-before">占位符</div>
             </template>
-          </a-input>
+          </el-input>
         </div>
-      </a-collapse-panel>
-      <a-collapse-panel header="默认值">
-        <a-input v-if="prop.type === 'Text'" v-model:value="prop.value" />
-        <a-select
+      </el-collapse-item>
+      <el-collapse-item title="默认值">
+        <el-input v-if="prop.type === 'Text'" v-model="prop.value" />
+        <el-select
           v-if="prop.type === 'Select'"
           ref="select"
-          v-model:value="prop.value"
+          v-model="prop.value"
           :options="prop.options"
           placeholder="请选择"
-        />
-        <a-checkbox-group
+        >
+          <el-option
+            v-for="item in prop.options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+        <el-checkbox-group
           v-if="prop.type === 'Checkbox'"
-          v-model:value="prop.value"
+          v-model="prop.value"
           name="checkboxgroup"
-          :options="prop.options"
-        />
-      </a-collapse-panel>
-    </a-collapse>
+        >
+          <el-checkbox
+            v-for="item in prop.options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-checkbox-group>
+      </el-collapse-item>
+    </el-collapse>
   </div>
 </template>
 

@@ -1,20 +1,16 @@
 <!-- @format -->
 
 <template>
-  <a-config-provider :locale="zhCN">
+  <el-config-provider :locale="zhCN">
     <router-view />
-  </a-config-provider>
+  </el-config-provider>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import zhCN from 'ant-design-vue/es/locale/zh_CN';
-
-import dayjs from 'dayjs';
-import 'dayjs/locale/zh-cn';
+// @ts-ignore ---
+import zhCN from 'element-plus/dist/locale/zh-cn.mjs';
 import { OverlayScrollbars } from 'overlayscrollbars';
-
-dayjs.locale('zh-cn');
 
 export default defineComponent({
   setup() {

@@ -7,7 +7,7 @@
       这个方法，因此实现上有点区别，具体请查看源码（因为演示开启了mockjs，因此地图不显示）
     </p>
     <div id="amap" class="amap" />
-    <a-button @click="clickChange">改变昵称</a-button>
+    <el-button @click="clickChange">改变昵称</el-button>
   </div>
 </template>
 

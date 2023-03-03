@@ -60,9 +60,9 @@
 
         &:focus,
         &:focus-visible {
-          border-color: rgba($color: $primary-color, $alpha: 0.3);
+          border-color: rgba($color: var(--primary-color), $alpha: 0.3);
           outline: 0;
-          box-shadow: 0 0 5px 0 rgba($color: $primary-color, $alpha: 0.3);
+          box-shadow: 0 0 5px 0 rgba($color: var(--primary-color), $alpha: 0.3);
         }
       }
 
@@ -74,7 +74,7 @@
         cursor: pointer;
 
         &:first-child {
-          color: $primary-color;
+          color: var(--primary-color);
         }
 
         &:last-child {
@@ -82,8 +82,8 @@
 
           &:hover {
             color: #fff;
-            background: $primary-color;
-            border-color: $primary-color;
+            background: var(--primary-color);
+            border-color: var(--primary-color);
           }
         }
       }

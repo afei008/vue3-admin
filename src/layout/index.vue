@@ -1,13 +1,15 @@
 <!-- @format -->
 
 <template>
-  <a-layout style="min-height: 100vh">
+  <el-container style="min-height: 100vh">
     <app-sidebar />
-    <a-layout>
-      <app-header />
+    <el-container>
+      <el-header class="app-header">
+        <app-header />
+      </el-header>
       <app-main />
-    </a-layout>
-  </a-layout>
+    </el-container>
+  </el-container>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';

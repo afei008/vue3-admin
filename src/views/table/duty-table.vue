@@ -1,37 +1,37 @@
 <!-- @format -->
 
 <template>
-  <a-button @click="clickMerge">合并</a-button>
-  <a-button @click="clickSplit">拆分</a-button>
-  <span>关注责任等级一列</span>
-  <a-spin :spinning="isLoading">
+  <div v-loading="isLoading">
+    <el-button @click="clickMerge">合并</el-button>
+    <el-button @click="clickSplit">拆分</el-button>
+    <span>关注责任等级一列</span>
     <vxe-grid ref="grid" v-bind="gridOptions">
       <template #label="{ row }">
         <div v-for="item in row.label" :key="item.id" class="flex">
           <div class="origin">{{ item.origin }}</div>
           <div class="labels flex">
             <div v-if="item.label1" class="flex column">
-              <a-tag v-for="label in item.label1" :key="label.id" color="pink">
+              <el-tag v-for="label in item.label1" :key="label.id">
                 {{ label.str }}
-              </a-tag>
+              </el-tag>
             </div>
             <div v-if="item.label2" class="flex column">
-              <a-tag v-for="label in item.label2" :key="label.id" color="pink">
+              <el-tag v-for="label in item.label2" :key="label.id">
                 {{ label.str }}
-              </a-tag>
+              </el-tag>
             </div>
             <div v-if="item.label3" class="flex column">
-              <a-tag v-for="label in item.label3" :key="label.id" color="pink">
+              <el-tag v-for="label in item.label3" :key="label.id">
                 {{ label.str }}
-              </a-tag>
+              </el-tag>
             </div>
           </div>
         </div>
       </template>
       <template #basis="{ row }">
         <p v-for="item in row.basis" :key="item.id">
-          <a-tooltip v-if="item.type === 1 || item.type === 2">
-            <template #title>{{ item.old }}</template>
+          <el-tooltip v-if="item.type === 1 || item.type === 2">
+            <template #content>{{ item.old }}</template>
             <span
               :class="{
                 blue: item.type === 1,
@@ -40,7 +40,7 @@
             >
               {{ item.str }}
             </span>
-          </a-tooltip>
+          </el-tooltip>
           <span v-else>{{ item.str }}</span>
         </p>
       </template>
@@ -55,7 +55,7 @@
         />
       </template>
     </vxe-grid>
-  </a-spin>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref, type Ref } from 'vue';

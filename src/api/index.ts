@@ -7,6 +7,6 @@ Object.entries(files).forEach((item) => {
   temp = { ...temp, ...value.default };
 });
 
-const api = { ...temp };
+const api = { ...temp } as any;
 
 export default api;

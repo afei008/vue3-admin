@@ -3,21 +3,21 @@
 <template>
   <div class="filter-condition">
     <div class="filter-head">
-      <a-radio-group v-model:value="formData.data.type">
-        <a-radio value="has" name="fType">包含</a-radio>
-        <a-radio value="eq" name="fType">等于</a-radio>
-      </a-radio-group>
+      <el-radio-group v-model="formData.data.type">
+        <el-radio label="has" name="fType">包含</el-radio>
+        <el-radio label="eq" name="fType">等于</el-radio>
+      </el-radio-group>
     </div>
     <div class="filter-body">
-      <a-input
-        v-model:value="formData.data.name"
+      <el-input
+        v-model="formData.data.name"
         type="text"
         placeholder="请输入名称"
       />
     </div>
     <div class="filter-footer">
-      <a-button type="primary" @click="confirmEvent">确认</a-button>
-      <a-button @click="resetEvent">重置</a-button>
+      <el-button type="primary" @click="confirmEvent">确认</el-button>
+      <el-button @click="resetEvent">重置</el-button>
     </div>
   </div>
 </template>
