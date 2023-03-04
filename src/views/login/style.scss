@@ -1,0 +1,172 @@
+/** @format */
+
+.login {
+  height: 100vh;
+  background: url('https://bing.com/th?id=OHR.DarkSkiesDV_ZH-CN1076500221_1920x1080.jpg')
+    no-repeat center/cover;
+}
+
+.form-wrap,
+.input,
+.input::placeholder,
+.label,
+.error-tips,
+.check-label,
+.btn {
+  transition: var(--t);
+}
+
+label,
+.btn {
+  cursor: pointer;
+}
+
+.form-wrap {
+  --t: 0.3s;
+  --c: #fff;
+  --c3: #{rgba($color: #333, $alpha: 0.3)};
+
+  width: 500px;
+  padding: 50px 30px;
+  background: var(--c3);
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+
+  &:hover {
+    box-shadow: 0 0 20px var(--c);
+  }
+
+  &.light {
+    --c: #333;
+    --c3: #{rgba($color: #fff, $alpha: 0.3)};
+  }
+
+  .form-head {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--c);
+    text-align: center;
+  }
+
+  .input-wrap {
+    height: 60px;
+    margin-bottom: 20px;
+  }
+
+  .input {
+    font-size: 20px;
+    color: var(--c);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--c);
+    outline: 0;
+
+    &::placeholder {
+      color: var(--c);
+      opacity: 0;
+    }
+
+    &:focus,
+    &:focus-visible,
+    &:required:valid {
+      & + .label {
+        bottom: 50%;
+        left: 0;
+        font-size: 14px;
+        color: var(--primary-color);
+        transform: translateY(-50%);
+      }
+
+      border-bottom-color: var(--primary-color);
+
+      &::placeholder {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .label {
+    bottom: 8px;
+    left: 10px;
+    z-index: -1;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--c);
+    letter-spacing: 1px;
+  }
+
+  .error-tips {
+    bottom: 0;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--primary-color);
+    opacity: 0;
+
+    &.show {
+      bottom: -16px;
+      opacity: 1;
+    }
+  }
+
+  .check-label {
+    width: 20px;
+    height: 20px;
+    background: var(--c);
+    border-radius: 5px;
+
+    &::before,
+    &::after {
+      color: var(--c);
+    }
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      content: '√';
+      transform: translate(-50%, -50%);
+    }
+
+    &::after {
+      padding-left: 30px;
+      font-size: 20px;
+      line-height: 1;
+      content: 'remember';
+    }
+  }
+
+  #remember {
+    opacity: 0;
+
+    &:checked + .check-label {
+      background: var(--primary-color);
+    }
+
+    &:focus-visible {
+      & + .check-label {
+        box-shadow: 0 0 5px 5px var(--primary-color);
+      }
+    }
+  }
+
+  .btn {
+    width: 100%;
+    height: 40px;
+    color: var(--c);
+    background: #e87890;
+    border: 0;
+    border-radius: 5px;
+
+    &:focus-visible {
+      outline: 0;
+      box-shadow: 0 0 15px 5px var(--primary-color);
+    }
+
+    &:focus,
+    &:focus-visible,
+    &:hover {
+      background: var(--primary-color);
+    }
+  }
+}
