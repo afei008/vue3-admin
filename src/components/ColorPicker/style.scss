@@ -60,9 +60,9 @@
 
         &:focus,
         &:focus-visible {
-          border-color: rgba($color: var(--primary-color), $alpha: 0.3);
+          border-color: var(--primary-border-color);
           outline: 0;
-          box-shadow: 0 0 5px 0 rgba($color: var(--primary-color), $alpha: 0.3);
+          box-shadow: 0 0 5px 0 var(--primary-box-shadow-color);
         }
       }
 

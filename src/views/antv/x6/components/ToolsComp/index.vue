@@ -92,10 +92,6 @@ const close = () => {
 </script>
 
 <style lang="scss" scoped>
-.ant-btn {
-  margin-left: 10px;
-}
-
 .view-wrap {
   position: relative;
   width: 1000px;

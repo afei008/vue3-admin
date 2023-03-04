@@ -3,8 +3,10 @@
 @use './variable';
 
 :root {
-  --primary-color: #{variable.$primary-color};
-  --secondary-color: #{variable.$secondary-color};
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
+  --primary-border-color: #{rgbaColor()};
+  --primary-box-shadow-color: #{rgbaColor()};
 }
 
 body,

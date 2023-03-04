@@ -2,3 +2,7 @@
 
 $primary-color: #e14e6f;
 $secondary-color: #57b2b0;
+
+@function rgbaColor($color: $primary-color, $alpha: 0.3) {
+  @return rgba($color: $color, $alpha: $alpha);
+}
