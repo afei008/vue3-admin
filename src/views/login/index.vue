@@ -2,43 +2,46 @@
 
 <template>
   <div class="login flex ac jc">
-    <div class="form-wrap">
-      <h1 class="form-head">Login Admin</h1>
-      <div class="input-wrap flex column je pr">
-        <input
-          v-model="formData.username"
-          class="input"
-          required
-          placeholder="admin"
-          @keyup.enter="submitForm"
-          @keyup="showErrTips.username = false"
-        />
-        <span class="label pa">username</span>
-        <span class="error-tips pa" :class="{ show: showErrTips.username }"
-          >请检查用户名</span
-        >
+    <div class="anima-wrap">
+      <div class="form-wrap">
+        <h1 class="form-head">Login Admin</h1>
+        <div class="input-wrap flex column je pr">
+          <input
+            v-model="formData.username"
+            class="input"
+            required
+            placeholder="admin"
+            @keyup.enter="submitForm"
+            @keyup="showErrTips.username = false"
+          />
+          <span class="label pa">username</span>
+          <span class="error-tips pa" :class="{ show: showErrTips.username }"
+            >请检查用户名</span
+          >
+        </div>
+        <div class="input-wrap flex column je pr">
+          <input
+            v-model="formData.password"
+            type="password"
+            class="input"
+            required
+            placeholder="any"
+            @keyup.enter="submitForm"
+            @keyup="showErrTips.password = false"
+          />
+          <span class="label pa">password</span>
+          <span class="error-tips pa" :class="{ show: showErrTips.password }"
+            >请输入密码</span
+          >
+        </div>
+        <div class="input-wrap flex ac">
+          <input id="remember" type="checkbox" />
+          <label class="check-label pr" for="remember" />
+        </div>
+        <button class="btn" @click="submitForm">Sign in</button>
       </div>
-      <div class="input-wrap flex column je pr">
-        <input
-          v-model="formData.password"
-          type="password"
-          class="input"
-          required
-          placeholder="any"
-          @keyup.enter="submitForm"
-          @keyup="showErrTips.password = false"
-        />
-        <span class="label pa">password</span>
-        <span class="error-tips pa" :class="{ show: showErrTips.password }"
-          >请输入密码</span
-        >
-      </div>
-      <div class="input-wrap flex ac">
-        <input id="remember" type="checkbox" />
-        <label class="check-label pr" for="remember" />
-      </div>
-      <button class="btn" @click="submitForm">Sign in</button>
     </div>
+    <div v-for="item in 3" :key="item" class="meteor" />
   </div>
 </template>
 <script setup lang="ts" name="LoginIndex">

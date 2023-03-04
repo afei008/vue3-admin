@@ -30,6 +30,7 @@ label,
   padding: 50px 30px;
   background: var(--c3);
   border-radius: 10px;
+  animation: anima 10s linear infinite;
   backdrop-filter: blur(2px);
 
   &:hover {
@@ -168,5 +169,63 @@ label,
     &:hover {
       background: var(--primary-color);
     }
+  }
+}
+
+.anima-wrap {
+  transform-origin: 50% 60%;
+  animation: anima 10s linear infinite reverse;
+
+  &:hover {
+    &,
+    .form-wrap {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes anima {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.meteor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 10px;
+  animation: meteor 10s infinite ease-out;
+
+  &:nth-child(2) {
+    right: 30vw;
+    animation-delay: -3s;
+  }
+
+  &:nth-child(3) {
+    right: 60vw;
+    animation-delay: -6s;
+  }
+}
+@keyframes meteor {
+  0% {
+    opacity: 1;
+    transform: perspective(500px) translate3d(0, 0, 0);
+  }
+
+  50% {
+    opacity: 0;
+    transform: perspective(500px) translate3d(-50vw, 30vh, 200px);
+  }
+
+  100% {
+    opacity: 0;
   }
 }
