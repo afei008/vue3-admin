@@ -1,116 +1,82 @@
 <!-- @format -->
 
 <template>
-  <div class="login">
-    <div class="form bg-white">
-      <a-form
-        :model="formData"
-        name="basic"
-        :label-col="{ span: 7 }"
-        :wrapper-col="{ span: 17 }"
-        autocomplete="off"
-        :rules="rules"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
-      >
-        <a-form-item label="Username" name="username">
-          <a-input
-            v-model:value="formData.username"
-            placeholder="admin or editor"
-          />
-        </a-form-item>
-
-        <a-form-item label="Password" name="password">
-          <a-input-password
-            v-model:value="formData.password"
-            placeholder="any"
-          />
-        </a-form-item>
-
-        <a-form-item name="remember" :wrapper-col="{ offset: 7, span: 17 }">
-          <a-checkbox v-model:checked="formData.remember">
-            Remember me
-          </a-checkbox>
-        </a-form-item>
-
-        <a-form-item :wrapper-col="{ offset: 7, span: 17 }">
-          <a-button type="primary" html-type="submit" :loading="isLoading">
-            Submit
-          </a-button>
-        </a-form-item>
-      </a-form>
+  <div class="login flex ac jc">
+    <div class="form-wrap">
+      <h1 class="form-head">Login Admin</h1>
+      <div class="input-wrap flex column je pr">
+        <input
+          v-model="formData.username"
+          class="input"
+          required
+          placeholder="admin"
+          @keyup.enter="submitForm"
+          @keyup="showErrTips.username = false"
+        />
+        <span class="label pa">username</span>
+        <span class="error-tips pa" :class="{ show: showErrTips.username }"
+          >请检查用户名</span
+        >
+      </div>
+      <div class="input-wrap flex column je pr">
+        <input
+          v-model="formData.password"
+          type="password"
+          class="input"
+          required
+          placeholder="any"
+          @keyup.enter="submitForm"
+          @keyup="showErrTips.password = false"
+        />
+        <span class="label pa">password</span>
+        <span class="error-tips pa" :class="{ show: showErrTips.password }"
+          >请输入密码</span
+        >
+      </div>
+      <div class="input-wrap flex ac">
+        <input id="remember" type="checkbox" />
+        <label class="check-label pr" for="remember" />
+      </div>
+      <button class="btn" @click="submitForm">Sign in</button>
     </div>
-    <rain />
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, ref, reactive } from 'vue';
-import type { RuleObject } from 'ant-design-vue/lib/form/interface';
+<script setup lang="ts" name="LoginIndex">
+import { ref, reactive } from 'vue';
 import { useUserStore } from '@/store/modules/user';
-import Rain from '@/components/Rain/index.vue';
 
-interface FormTypes {
-  username: string;
-  password: string;
-  remember: boolean;
-}
-export default defineComponent({
-  name: 'LoginIndex',
-  components: { Rain },
-  setup() {
-    const userStore = useUserStore();
-    const formData = reactive<FormTypes>({
-      username: '',
-      password: '',
-      remember: true,
-    });
-    const isLoading = ref<boolean>(false);
-    const checkUsername = async (_rule: RuleObject, value: string) => {
-      if (value === '') {
-        return Promise.reject(new Error('请输入用户名'));
-      }
-      if (value !== 'admin' && value !== 'editor') {
-        return Promise.reject(new Error('请输入admin或editor'));
-      }
-      return Promise.resolve();
-    };
-    const rules = {
-      username: [
-        { required: true, validator: checkUsername, trigger: 'change' },
-      ],
-      password: [{ required: true, message: '请输入密码' }],
-    };
-    const onFinish = (values: FormTypes) => {
-      const { username, password } = values;
-      isLoading.value = true;
-      userStore.login({ username, password }).finally(() => {
-        isLoading.value = false;
-      });
-    };
-
-    const onFinishFailed = (err: any) => {
-      console.log('Failed:', err);
-    };
-    return {
-      formData,
-      rules,
-      isLoading,
-      onFinish,
-      onFinishFailed,
-    };
-  },
+const userStore = useUserStore();
+const formData = reactive({
+  username: '',
+  password: '',
+  remember: true,
 });
+const isLoading = ref<boolean>(false);
+const showErrTips = reactive({
+  username: false,
+  password: false,
+});
+const submitForm = () => {
+  if (!formData.username || formData.username !== 'admin') {
+    showErrTips.username = true;
+    return;
+  }
+  if (!formData.password) {
+    showErrTips.password = true;
+    return;
+  }
+
+  isLoading.value = true;
+  userStore
+    .login({
+      username: formData.username,
+      password: formData.password,
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
+};
 </script>
 <style lang="scss" scoped>
-.login {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: #222;
-}
-
-.form {
-  padding: 30px;
-}
+@import './style';
 </style>
