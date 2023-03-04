@@ -3,6 +3,8 @@
 :root {
   --primary-color: #{$primary-color};
   --secondary-color: #{$secondary-color};
+  --primary-border-color: #{rgbaColor()};
+  --primary-box-shadow-color: #{rgbaColor()};
 }
 
 ul,

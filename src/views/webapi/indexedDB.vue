@@ -157,6 +157,6 @@ export default defineComponent({
 }
 
 .table {
-  height: calc(100vh - 94px - 40px - 32px - 20px);
+  height: calc(100vh - 80px - 40px - 32px - 20px);
 }
 </style>

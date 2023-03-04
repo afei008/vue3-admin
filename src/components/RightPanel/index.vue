@@ -81,10 +81,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .right-panel {
-  --h: calc(100vh - 94px);
+  --h: calc(100vh - 80px);
 
   position: fixed;
-  top: 94px;
+  top: 80px;
   right: 0;
   width: 50%;
   height: var(--h);

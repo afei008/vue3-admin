@@ -79,7 +79,6 @@ export default defineComponent({
 .trigger {
   margin-right: 20px;
   font-size: 18px;
-  line-height: 64px;
   cursor: pointer;
   transition: color 0.3s;
 

@@ -107,6 +107,6 @@ const close = () => {
   height: 60vh;
   margin: auto;
   overflow: hidden;
-  border: 1px solid $primary-color;
+  border: 1px solid var(--primary-color);
 }
 </style>

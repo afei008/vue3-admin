@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs, watch } from 'vue';
 import Editor from '@tinymce/tinymce-vue';
-import useCurrentInstance from '@/composables/useCurrentInstance';
+import API from '@/api';
 
 export default defineComponent({
   name: 'TinymceEditor',
@@ -27,23 +27,23 @@ export default defineComponent({
     msg: null,
     width: {
       type: [Number, String],
+      default: '100%',
     },
     height: {
       type: [Number, String],
+      default: 300,
     },
   },
   setup(props, context) {
     const { width, height } = toRefs(props);
     const content = ref();
-    const { proxy } = useCurrentInstance();
 
     const imgUpload = (
       blobInfo: Record<string, unknown>,
       success: (url: string) => void,
       failure: (err: unknown) => void
     ) => {
-      proxy.$api
-        .fileUpload({ blobInfo })
+      API.fileUpload({ blobInfo })
         .then((res: any) => success(res.data.files.upload_file))
         .catch((err: unknown) => failure(err));
     };

@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <template>
-  <div class="app-container">
+  <div class="container">
     <div class="overview"><overview-vue /></div>
     <div class="charts"><charts-vue ref="chartsRef" /></div>
     <div class="charts-demo">
@@ -40,12 +40,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.app-container {
-  min-height: calc(100vh - 94px);
-  margin: -20px;
-  background: #f0f2f5;
-}
-
 .charts {
   margin: 20px 0;
 }
