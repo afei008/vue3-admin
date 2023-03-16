@@ -11,7 +11,6 @@ import permissionRoutes from './permission';
 import amapRoutes from './amapRoutes';
 import webapiRoutes from './webapiRoutes';
 import antvRoutes from './antvRoutes';
-import d3Routes from './d3Routes';
 
 const routes: Array<RouteRecordRaw> = [
   ...singleRoutes,
@@ -23,7 +22,6 @@ const routes: Array<RouteRecordRaw> = [
   ...amapRoutes,
   ...webapiRoutes,
   ...antvRoutes,
-  ...d3Routes,
   // {
   //   path: '/vue-app',
   //   redirect: '/vue-app/index',
