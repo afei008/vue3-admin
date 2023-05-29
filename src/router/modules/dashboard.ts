@@ -22,9 +22,9 @@ const routes: Array<RouteRecordRaw> = [
         meta: { title: '分析页' },
       },
       {
-        path: 'http://www.baidu.com',
+        path: 'https://afei008.github.io/d3/index.html',
         component: () => import('@/layout/index.vue'),
-        meta: { title: '外链' },
+        meta: { title: 'd3' },
       },
     ],
   },
