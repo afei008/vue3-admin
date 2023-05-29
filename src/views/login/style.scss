@@ -172,28 +172,6 @@ label,
   }
 }
 
-.anima-wrap {
-  transform-origin: 50% 60%;
-  animation: anima 10s linear infinite reverse;
-
-  &:hover {
-    &,
-    .form-wrap {
-      animation-play-state: paused;
-    }
-  }
-}
-
-@keyframes anima {
-  0% {
-    transform: rotate(0);
-  }
-
-  100% {
-    transform: rotate(1turn);
-  }
-}
-
 .meteor {
   position: absolute;
   top: 0;
