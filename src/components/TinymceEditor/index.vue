@@ -4,8 +4,8 @@
   <editor
     ref="editorRef"
     v-model="content"
-    api-key="k4llym7ey74hcmxd7bftnmbacjzy0juzywoaml6i8a90rvy9"
     :init="editorInit"
+    tinymce-script-src="/tinymce/tinymce.min.js"
   />
 </template>
 
@@ -52,7 +52,7 @@ export default defineComponent({
     const editorInit = reactive({
       width,
       height,
-      language: 'zh_CN',
+      language: 'zh-Hans',
       branding: false,
       images_upload_url: 'https://httpbin.org/post',
       images_upload_handler(
@@ -63,9 +63,23 @@ export default defineComponent({
         imgUpload(blobInfo, success, failure);
       },
       plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table paste code help wordcount',
+        'advlist',
+        'autolink',
+        'lists',
+        'link',
+        'image',
+        'charmap',
+        'preview',
+        'anchor',
+        'searchreplace',
+        'visualblocks',
+        'code',
+        'fullscreen',
+        'insertdatetime',
+        'media',
+        'table',
+        'code',
+        'wordcount',
         'image',
       ],
       toolbar:

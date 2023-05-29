@@ -28,6 +28,7 @@
     "echarts": "^5.4.1",
     "element-plus": "^2.2.32",
     "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "overlayscrollbars": "^2.1.0",
     "overlayscrollbars-vue": "^0.5.1",
     "path-browserify": "^1.0.1",

@@ -1,10 +1,12 @@
 <!-- @format -->
 
 <template>
-  <p>tinymce 富文本编辑器</p>
-  <tinymce-editor v-model="content" :height="400" />
+  <div>
+    <p>tinymce 富文本编辑器</p>
+    <tinymce-editor v-model="content" :height="400" />
 
-  <div v-html="content" />
+    <div v-html="content" />
+  </div>
 </template>
 
 <script lang="ts">

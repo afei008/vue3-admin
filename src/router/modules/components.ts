@@ -48,14 +48,6 @@ const routes: Array<RouteRecordRaw> = [
       //   },
     ],
   },
-  {
-    path: '/components/dynamic-form:pathMatch(.*)*',
-    redirect: '/components/dynamic-form',
-  },
-  {
-    path: '/components/custom-table:pathMatch(.*)*',
-    redirect: '/components/custom-table',
-  },
 ];
 
 export default routes;

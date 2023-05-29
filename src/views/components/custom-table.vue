@@ -1,23 +1,25 @@
 <!-- @format -->
 
 <template>
-  <h1>类似 antd 表格的传参方式</h1>
-  <b-table :data="tableData" :columns="columns">
-    <template #detail="record">
-      <el-button>{{ record.rowData }}</el-button>
-    </template>
-  </b-table>
-  <h1>类似 element-ui 表格的传参方式</h1>
-  <e-table :data="tableData">
-    <e-table-column :sortable="true" :prop="'big'" :label="'大小'" />
-    <e-table-column :sortable="true" :prop="'address'" :label="'地址'" />
-    <e-table-column :sortable="true" :prop="'name'" :label="'姓名'" />
-    <e-table-column :sortable="true" :prop="'date'" :label="'日期'">
-      <template #default="record">
+  <div>
+    <h1>类似 antd 表格的传参方式</h1>
+    <b-table :data="tableData" :columns="columns">
+      <template #detail="record">
         <el-button>{{ record.rowData }}</el-button>
       </template>
-    </e-table-column>
-  </e-table>
+    </b-table>
+    <h1>类似 element-ui 表格的传参方式</h1>
+    <e-table :data="tableData">
+      <e-table-column :sortable="true" :prop="'big'" :label="'大小'" />
+      <e-table-column :sortable="true" :prop="'address'" :label="'地址'" />
+      <e-table-column :sortable="true" :prop="'name'" :label="'姓名'" />
+      <e-table-column :sortable="true" :prop="'date'" :label="'日期'">
+        <template #default="record">
+          <el-button>{{ record.rowData }}</el-button>
+        </template>
+      </e-table-column>
+    </e-table>
+  </div>
 </template>
 
 <script lang="ts">

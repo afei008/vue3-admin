@@ -38,7 +38,9 @@
           <input id="remember" type="checkbox" />
           <label class="check-label pr" for="remember" />
         </div>
-        <button class="btn" @click="submitForm">Sign in</button>
+        <button class="btn" :disabled="isLoading" @click="submitForm">
+          Sign in
+        </button>
       </div>
     </div>
     <div v-for="item in 3" :key="item" class="meteor" />
