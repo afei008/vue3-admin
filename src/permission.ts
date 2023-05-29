@@ -1,6 +1,9 @@
 /** @format */
 
 import type { RouteRecord } from 'vue-router';
+// @ts-ignore ---
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 import router from './router';
 import { useUserStore } from '@/store/modules/user';
 
@@ -8,6 +11,7 @@ const whiteList = ['/login'];
 
 // 暂时没有好方法能不使用 next 进行路由拦截
 router.beforeEach(async (to, from, next) => {
+  NProgress.start();
   const userStore = useUserStore();
   const hasToken = userStore.token;
   if (!hasToken) {
@@ -37,4 +41,8 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   }
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
